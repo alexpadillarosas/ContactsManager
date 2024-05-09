@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FA35EEA02BEA14460031B74F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FA35EE9F2BEA14460031B74F /* FirebaseAuth */; };
+		FA35EEA22BEC8C910031B74F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA35EEA12BEC8C910031B74F /* GoogleService-Info.plist */; };
 		FABABB8F2BE1101600F693EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABABB8E2BE1101600F693EA /* AppDelegate.swift */; };
 		FABABB912BE1101600F693EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABABB902BE1101600F693EA /* SceneDelegate.swift */; };
 		FABABB962BE1101600F693EA /* Base in Resources */ = {isa = PBXBuildFile; fileRef = FABABB952BE1101600F693EA /* Base */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA35EEA12BEC8C910031B74F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FABABB8B2BE1101600F693EA /* ContactsManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABABB8E2BE1101600F693EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FABABB902BE1101600F693EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 		FABABB8D2BE1101600F693EA /* ContactsManager */ = {
 			isa = PBXGroup;
 			children = (
+				FA35EEA12BEC8C910031B74F /* GoogleService-Info.plist */,
 				FABABB8E2BE1101600F693EA /* AppDelegate.swift */,
 				FABABB902BE1101600F693EA /* SceneDelegate.swift */,
 				FABABB942BE1101600F693EA /* Main.storyboard */,
@@ -156,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FABABB982BE1101700F693EA /* Assets.xcassets in Resources */,
+				FA35EEA22BEC8C910031B74F /* GoogleService-Info.plist in Resources */,
 				FABABB9B2BE1101700F693EA /* Base in Resources */,
 				FABABB962BE1101600F693EA /* Base in Resources */,
 			);
