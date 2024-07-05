@@ -16,6 +16,8 @@ class SignUpVC: UIViewController {
     @IBOutlet weak var passwordConfirmationTextField: UITextField!
     @IBOutlet weak var logInActivityIndicatorView: UIActivityIndicatorView!
     
+    let service = ContactRespository()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,31 +58,56 @@ class SignUpVC: UIViewController {
          */
         Auth.auth().createUser(withEmail: email, password: password){ authResult, error in
             guard error == nil else {
-                self.showAlertMessage(title: "Error", message: "Failed to create a new account")
-                print(error!)
+                self.showAlertMessage(title: "We could not create the account", message: "\(error!.localizedDescription)")
                 self.logInActivityIndicatorView.stopAnimating()
                 return
             }
-            self.logInActivityIndicatorView.stopAnimating()
-            self.showAlertMessage(title: "yay", message: "user registered, UID: \(authResult!.user.uid)")
+//            self.showAlertMessage(title: "yay", message: "user registered, UID: \(authResult!.user.uid)")
             
+            /**
+             This function send an email to the user, to confirm the account
+             */
+            Auth.auth().currentUser?.sendEmailVerification{ error in
+                if let error = error {
+                    self.showAlertMessage(title: "Error", message: "\(error)")
+                    self.logInActivityIndicatorView.stopAnimating()
+                    return
+                }
+                // Create a closure with code to execute as soon as the user acknowledge the confirmation email message
+                let action : () -> Void = {
+                    //Get the UserId
+                    let userAuthId = Auth.auth().currentUser?.uid
+                    print("signed up id \(userAuthId ?? "NIL")")
+                    //create an object user so we can save it in cloud firestore inside of the users collection
+                    let user = User(id: userAuthId!,
+                                    firstname: "",
+                                    lastname: "",
+                                    email: email,
+                                    phone: "",
+                                    photo: ""
+        //                            registered: ,//We can ommit it, as it's declared as param with default value nil
+        //                            contacts: []  //the user has not contacts registered at this point
+                                    )
+                    
+                    if self.service.addUser(user: user) {
+                        print("User Added \(user.email)")
+                    }
+                    
+                    // programmatically navigate to LoginVC so the user will Log in after confirming their account
+                    let loginViewController = self.storyboard?.instantiateViewController(identifier: "LoginVC") as? UINavigationController
+                    
+                    self.view.window?.rootViewController = loginViewController
+                    self.view.window?.makeKeyAndVisible()
+                }
+                
+                self.logInActivityIndicatorView.stopAnimating()
+                self.showAlertMessageWithHandler(title: "Email Confirmation Sent", 
+                                                 message: "A confirmation email has been sent to you email account, please confirm your account before you log in",
+                                                 onComplete: action)
+              }
+             
         }
     
-    }
-    
-    //we created this function temporarily, we will replace it for isBlank in the Extensions.swift file
-    func isBlank (optionalString :String?) -> Bool {
-        
-        guard let myString = optionalString, !myString.trimmingCharacters(in:.whitespaces).isEmpty else {
-            print("String is nil or empty.")
-            return false // or break, continue, throw
-        }
-        return true
-//        if let string = optionalString {
-//            return string.isEmpty
-//        } else {
-//            return true
-//        }
     }
 
 

@@ -7,8 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA0A3B602BF8A86200374CD2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A3B5F2BF8A86200374CD2 /* User.swift */; };
 		FA35EEA02BEA14460031B74F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FA35EE9F2BEA14460031B74F /* FirebaseAuth */; };
 		FA35EEA22BEC8C910031B74F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA35EEA12BEC8C910031B74F /* GoogleService-Info.plist */; };
+		FA35EEA52BEF344F0031B74F /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35EEA42BEF344F0031B74F /* Contact.swift */; };
+		FA35EEA92BEF428B0031B74F /* ShowContactsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35EEA82BEF428B0031B74F /* ShowContactsTableVC.swift */; };
+		FA35EEAB2BEF49E10031B74F /* ContactRespository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35EEAA2BEF49E10031B74F /* ContactRespository.swift */; };
+		FA35EEAF2BEF4B630031B74F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FA35EEAE2BEF4B630031B74F /* FirebaseFirestore */; };
+		FA35EEB12BEF51630031B74F /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA35EEB02BEF51630031B74F /* FirebaseFirestoreSwift */; };
 		FABABB8F2BE1101600F693EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABABB8E2BE1101600F693EA /* AppDelegate.swift */; };
 		FABABB912BE1101600F693EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABABB902BE1101600F693EA /* SceneDelegate.swift */; };
 		FABABB962BE1101600F693EA /* Base in Resources */ = {isa = PBXBuildFile; fileRef = FABABB952BE1101600F693EA /* Base */; };
@@ -17,10 +23,15 @@
 		FABF9FB52BE45577001920DA /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABF9FB42BE45577001920DA /* LogInVC.swift */; };
 		FABF9FB72BE45587001920DA /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABF9FB62BE45587001920DA /* SignUpVC.swift */; };
 		FABF9FBB2BE51109001920DA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABF9FBA2BE51109001920DA /* Extensions.swift */; };
+		FAE7FA172BFC35FA0013E8E3 /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7FA162BFC35FA0013E8E3 /* ContactTVCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA0A3B5F2BF8A86200374CD2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FA35EEA12BEC8C910031B74F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FA35EEA42BEF344F0031B74F /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		FA35EEA82BEF428B0031B74F /* ShowContactsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactsTableVC.swift; sourceTree = "<group>"; };
+		FA35EEAA2BEF49E10031B74F /* ContactRespository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRespository.swift; sourceTree = "<group>"; };
 		FABABB8B2BE1101600F693EA /* ContactsManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABABB8E2BE1101600F693EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FABABB902BE1101600F693EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,6 +42,7 @@
 		FABF9FB42BE45577001920DA /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		FABF9FB62BE45587001920DA /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		FABF9FBA2BE51109001920DA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		FAE7FA162BFC35FA0013E8E3 /* ContactTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTVCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +51,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA35EEA02BEA14460031B74F /* FirebaseAuth in Frameworks */,
+				FA35EEAF2BEF4B630031B74F /* FirebaseFirestore in Frameworks */,
+				FA35EEB12BEF51630031B74F /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +64,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA35EEA32BEF341E0031B74F /* ShowContacts */ = {
+			isa = PBXGroup;
+			children = (
+				FA35EEA42BEF344F0031B74F /* Contact.swift */,
+				FA35EEA82BEF428B0031B74F /* ShowContactsTableVC.swift */,
+				FAE7FA162BFC35FA0013E8E3 /* ContactTVCell.swift */,
+			);
+			path = ShowContacts;
 			sourceTree = "<group>";
 		};
 		FABABB822BE1101600F693EA = {
@@ -72,11 +96,13 @@
 		FABABB8D2BE1101600F693EA /* ContactsManager */ = {
 			isa = PBXGroup;
 			children = (
+				FA35EEA32BEF341E0031B74F /* ShowContacts */,
 				FA35EEA12BEC8C910031B74F /* GoogleService-Info.plist */,
 				FABABB8E2BE1101600F693EA /* AppDelegate.swift */,
 				FABABB902BE1101600F693EA /* SceneDelegate.swift */,
 				FABABB942BE1101600F693EA /* Main.storyboard */,
 				FABF9FBA2BE51109001920DA /* Extensions.swift */,
+				FA35EEAA2BEF49E10031B74F /* ContactRespository.swift */,
 				FABABBA22BE1111B00F693EA /* Login */,
 				FABABB972BE1101700F693EA /* Assets.xcassets */,
 				FABABB992BE1101700F693EA /* LaunchScreen.storyboard */,
@@ -90,6 +116,7 @@
 			children = (
 				FABF9FB42BE45577001920DA /* LogInVC.swift */,
 				FABF9FB62BE45587001920DA /* SignUpVC.swift */,
+				FA0A3B5F2BF8A86200374CD2 /* User.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -112,6 +139,8 @@
 			name = ContactsManager;
 			packageProductDependencies = (
 				FA35EE9F2BEA14460031B74F /* FirebaseAuth */,
+				FA35EEAE2BEF4B630031B74F /* FirebaseFirestore */,
+				FA35EEB02BEF51630031B74F /* FirebaseFirestoreSwift */,
 			);
 			productName = ContactsManager;
 			productReference = FABABB8B2BE1101600F693EA /* ContactsManager.app */;
@@ -172,11 +201,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA35EEA52BEF344F0031B74F /* Contact.swift in Sources */,
 				FABF9FB72BE45587001920DA /* SignUpVC.swift in Sources */,
+				FA35EEAB2BEF49E10031B74F /* ContactRespository.swift in Sources */,
 				FABABB8F2BE1101600F693EA /* AppDelegate.swift in Sources */,
 				FABF9FBB2BE51109001920DA /* Extensions.swift in Sources */,
 				FABABB912BE1101600F693EA /* SceneDelegate.swift in Sources */,
+				FAE7FA172BFC35FA0013E8E3 /* ContactTVCell.swift in Sources */,
+				FA35EEA92BEF428B0031B74F /* ShowContactsTableVC.swift in Sources */,
 				FABF9FB52BE45577001920DA /* LogInVC.swift in Sources */,
+				FA0A3B602BF8A86200374CD2 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +450,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FABF9FAF2BE3925C001920DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		FA35EEAE2BEF4B630031B74F /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FABF9FAF2BE3925C001920DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		FA35EEB02BEF51630031B74F /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FABF9FAF2BE3925C001920DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

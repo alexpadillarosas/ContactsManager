@@ -41,6 +41,19 @@ extension UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    //We create a function with a trailing closure, so we can pass code to be executed whenever the hit the ok button
+    func showAlertMessageWithHandler(title : String, message: String, onComplete : (()-> Void)? ){
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        let oncompleteAction: UIAlertAction = UIAlertAction(title: "OK", style: .default) { action in
+            onComplete?()
+        }
+        
+        alert.addAction(oncompleteAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
     
     /**
      Using closures:
