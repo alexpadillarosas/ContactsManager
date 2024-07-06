@@ -50,6 +50,43 @@ class SignUpVC: UIViewController {
             return
         }
         logInActivityIndicatorView.startAnimating()
+        
+        // Create a closure with code to execute as soon as the user acknowledge the confirmation email message
+        let registerUserClosure : () -> Void = {
+            //Get the UserId
+            let userAuthId = Auth.auth().currentUser?.uid
+            print("signed up id \(userAuthId ?? "NIL")")
+            //create an object user so we can save it in cloud firestore inside of the users collection
+            let user = User(id: userAuthId!,
+                            firstname: "",
+                            lastname: "",
+                            email: email,
+                            phone: "",
+                            photo: ""
+//                            registered: ,//We can ommit it, as it's declared as param with default value nil
+//                            contacts: []  //the user has not contacts registered at this point
+                            )
+            
+            if self.service.addUser(user: user) {
+                print("User Added \(user.email)")
+            }
+            
+            // programmatically navigate to LoginVC so the user will Log in after confirming their account
+            // The commented code below it's an option but since we need to go to the previous view controller
+            // and SignUpVC is connected to the same navigation controller, we can just use it to go back to
+            // the previous view controller
+            
+            /*
+            let loginViewController = self.storyboard?.instantiateViewController(identifier: "LoginVC") as? UINavigationController
+            
+            self.view.window?.rootViewController = loginViewController
+            self.view.window?.makeKeyAndVisible()
+             */
+            self.navigationController?.popViewController(animated: true)
+            
+        }
+        
+        
         /*
          This function createUser receives as last parameter a closure:
          Since the last parameter is a closure we can call it trailing closure therefore, we can place the closure outside
@@ -73,37 +110,12 @@ class SignUpVC: UIViewController {
                     self.logInActivityIndicatorView.stopAnimating()
                     return
                 }
-                // Create a closure with code to execute as soon as the user acknowledge the confirmation email message
-                let action : () -> Void = {
-                    //Get the UserId
-                    let userAuthId = Auth.auth().currentUser?.uid
-                    print("signed up id \(userAuthId ?? "NIL")")
-                    //create an object user so we can save it in cloud firestore inside of the users collection
-                    let user = User(id: userAuthId!,
-                                    firstname: "",
-                                    lastname: "",
-                                    email: email,
-                                    phone: "",
-                                    photo: ""
-        //                            registered: ,//We can ommit it, as it's declared as param with default value nil
-        //                            contacts: []  //the user has not contacts registered at this point
-                                    )
-                    
-                    if self.service.addUser(user: user) {
-                        print("User Added \(user.email)")
-                    }
-                    
-                    // programmatically navigate to LoginVC so the user will Log in after confirming their account
-                    let loginViewController = self.storyboard?.instantiateViewController(identifier: "LoginVC") as? UINavigationController
-                    
-                    self.view.window?.rootViewController = loginViewController
-                    self.view.window?.makeKeyAndVisible()
-                }
+
                 
                 self.logInActivityIndicatorView.stopAnimating()
                 self.showAlertMessageWithHandler(title: "Email Confirmation Sent", 
                                                  message: "A confirmation email has been sent to you email account, please confirm your account before you log in",
-                                                 onComplete: action)
+                                                 onComplete: registerUserClosure)
               }
              
         }
