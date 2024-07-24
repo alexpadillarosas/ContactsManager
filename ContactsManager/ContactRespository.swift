@@ -31,7 +31,7 @@ class ContactRespository {
                     })
                     
                     for contact in contacts {
-                        print(contact.firstname)
+                        print(contact.toString())
                     }
                     completion(contacts) //we execute the completion which is a block of code received as parameter
                    // self.contactsTableView.reloadData()
@@ -46,11 +46,11 @@ class ContactRespository {
     func addUser(user: User ) -> Bool {
         var result = true
         let dictionary : [String: Any] = [
-            "firstname": user.firstname,
-            "lastname": user.lastname,
-            "email": user.email,
-            "phone": user.phone,
-            "photo": user.photo,
+            "firstname": user.firstname as String,
+            "lastname": user.lastname as String,
+            "email": user.email as String,
+            "phone": user.phone as String,
+            "photo": user.photo as String,
             "registered": user.registered ?? FieldValue.serverTimestamp(), //if user.registered is nil then assignt the server timestamp
             "contacts": user.contacts
         ]
@@ -68,6 +68,75 @@ class ContactRespository {
                 result = false
             }
         }
+        return result
+    }
+    
+    
+    func update(userId: String, contact: Contact) -> Bool {
+        var result = true
+
+        let dictionary : [String : Any] = [
+            "firstname": contact.firstname as String,
+            "lastname": contact.lastname as String,
+            "email": contact.email as String,
+            "phone": contact.phone as String,
+            "photo": contact.photo as String,
+            "favourite": contact.favourite as Bool,
+            "note": contact.note as String
+        ]
+        
+        db.collection("users/" + userId + "/contacts").document(contact.id!).updateData(dictionary){ error in
+            if let error = error {
+                print("Error updating document: \(error)")
+                result = false
+            }else{
+                print("Document updated")
+            }
+        }
+
+        return result
+    }
+    
+    func add(userId: String, contact: Contact) -> Bool {
+        var result = true
+        //let userAuthId = Auth.auth().currentUser?.uid
+        print("User id in Show Contacts: \(userId)")
+        
+        let dictionary : [String: Any] = [
+            "firstname": contact.firstname as String,
+            "lastname": contact.lastname as String,
+            "email": contact.email as String,
+            "favourite": contact.favourite as Bool,
+            "note": contact.note as String,
+            "phone": contact.phone as String,
+            "photo": contact.photo as String,
+//            "registered": FieldValue.serverTimestamp(),
+            "tags": [String]()
+        ]
+        
+        /*
+        db.collection("users/" + userId + "/contacts").addDocument(data: dictionary){ error in
+            if let error = error {
+                print("Contact has not been added: \(contact.email) \(error)")
+                result = false
+            }else{
+                print("Contact Added: \(contact.email)")
+            }
+            
+        }
+         */
+        var newContactRef = db.collection("users").document(userId).collection("contacts").document()
+        
+        newContactRef.setData(dictionary) { error in
+            if let error = error {
+                print("Error adding the document \(error.localizedDescription)")
+                result = false
+            }else{
+                print("Contact was added")
+            }
+            
+        }
+        
         return result
     }
     

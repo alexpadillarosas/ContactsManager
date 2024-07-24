@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		FA0A3B602BF8A86200374CD2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A3B5F2BF8A86200374CD2 /* User.swift */; };
+		FA298A082C4B821800339C7D /* ViewContactTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA298A072C4B821800339C7D /* ViewContactTVC.swift */; };
+		FA298A0B2C4B971800339C7D /* EditContactTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA298A0A2C4B971800339C7D /* EditContactTVC.swift */; };
 		FA35EEA02BEA14460031B74F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FA35EE9F2BEA14460031B74F /* FirebaseAuth */; };
 		FA35EEA22BEC8C910031B74F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA35EEA12BEC8C910031B74F /* GoogleService-Info.plist */; };
 		FA35EEA52BEF344F0031B74F /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35EEA42BEF344F0031B74F /* Contact.swift */; };
@@ -24,10 +26,13 @@
 		FABF9FB72BE45587001920DA /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABF9FB62BE45587001920DA /* SignUpVC.swift */; };
 		FABF9FBB2BE51109001920DA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABF9FBA2BE51109001920DA /* Extensions.swift */; };
 		FAE7FA172BFC35FA0013E8E3 /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7FA162BFC35FA0013E8E3 /* ContactTVCell.swift */; };
+		FAFC235D2C4F952C00A89A67 /* AddContactTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFC235C2C4F952C00A89A67 /* AddContactTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FA0A3B5F2BF8A86200374CD2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FA298A072C4B821800339C7D /* ViewContactTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContactTVC.swift; sourceTree = "<group>"; };
+		FA298A0A2C4B971800339C7D /* EditContactTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactTVC.swift; sourceTree = "<group>"; };
 		FA35EEA12BEC8C910031B74F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA35EEA42BEF344F0031B74F /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		FA35EEA82BEF428B0031B74F /* ShowContactsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactsTableVC.swift; sourceTree = "<group>"; };
@@ -43,6 +48,7 @@
 		FABF9FB62BE45587001920DA /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		FABF9FBA2BE51109001920DA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FAE7FA162BFC35FA0013E8E3 /* ContactTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTVCell.swift; sourceTree = "<group>"; };
+		FAFC235C2C4F952C00A89A67 /* AddContactTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +65,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA298A062C4B81F900339C7D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA298A072C4B821800339C7D /* ViewContactTVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA298A092C4B96F800339C7D /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				FA298A0A2C4B971800339C7D /* EditContactTVC.swift */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
+		FA298A0C2C4DFD4600339C7D /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				FA298A0D2C4DFD9500339C7D /* Add */,
+				FA35EEA32BEF341E0031B74F /* Show */,
+				FA298A062C4B81F900339C7D /* View */,
+				FA298A092C4B96F800339C7D /* Edit */,
+			);
+			path = Contact;
+			sourceTree = "<group>";
+		};
+		FA298A0D2C4DFD9500339C7D /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				FAFC235C2C4F952C00A89A67 /* AddContactTVC.swift */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
 		FA35EE9E2BEA14460031B74F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,14 +107,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		FA35EEA32BEF341E0031B74F /* ShowContacts */ = {
+		FA35EEA32BEF341E0031B74F /* Show */ = {
 			isa = PBXGroup;
 			children = (
 				FA35EEA42BEF344F0031B74F /* Contact.swift */,
 				FA35EEA82BEF428B0031B74F /* ShowContactsTableVC.swift */,
 				FAE7FA162BFC35FA0013E8E3 /* ContactTVCell.swift */,
 			);
-			path = ShowContacts;
+			path = Show;
 			sourceTree = "<group>";
 		};
 		FABABB822BE1101600F693EA = {
@@ -96,7 +137,7 @@
 		FABABB8D2BE1101600F693EA /* ContactsManager */ = {
 			isa = PBXGroup;
 			children = (
-				FA35EEA32BEF341E0031B74F /* ShowContacts */,
+				FA298A0C2C4DFD4600339C7D /* Contact */,
 				FA35EEA12BEC8C910031B74F /* GoogleService-Info.plist */,
 				FABABB8E2BE1101600F693EA /* AppDelegate.swift */,
 				FABABB902BE1101600F693EA /* SceneDelegate.swift */,
@@ -206,10 +247,13 @@
 				FA35EEAB2BEF49E10031B74F /* ContactRespository.swift in Sources */,
 				FABABB8F2BE1101600F693EA /* AppDelegate.swift in Sources */,
 				FABF9FBB2BE51109001920DA /* Extensions.swift in Sources */,
+				FA298A082C4B821800339C7D /* ViewContactTVC.swift in Sources */,
 				FABABB912BE1101600F693EA /* SceneDelegate.swift in Sources */,
 				FAE7FA172BFC35FA0013E8E3 /* ContactTVCell.swift in Sources */,
 				FA35EEA92BEF428B0031B74F /* ShowContactsTableVC.swift in Sources */,
 				FABF9FB52BE45577001920DA /* LogInVC.swift in Sources */,
+				FAFC235D2C4F952C00A89A67 /* AddContactTVC.swift in Sources */,
+				FA298A0B2C4B971800339C7D /* EditContactTVC.swift in Sources */,
 				FA0A3B602BF8A86200374CD2 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,6 +414,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -398,6 +443,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

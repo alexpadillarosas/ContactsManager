@@ -3,6 +3,33 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "ViewContactTVC.viewDidLoad():ViewContactTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "contact.registered.description">
+            </PersistentString>
+            <PersistentString
+               value = "contact.registered.dateValue.hour">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in ContactRespository.findUserContacts(fromCollection:forUserId:completion:):ContactRespository.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data[&quot;contacts&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ContactRespository.findUserContacts(fromCollection:forUserId:completion:):ContactRespository.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "db.collection(&quot;users&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in ShowContactsTableVC.viewDidLoad():ShowContactsTableVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -14,14 +41,6 @@
          contextName = "closure #1 in closure #1 in ContactRespository.find(collection:completion:):ContactRespository.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in ContactRespository.findUserContacts(fromCollection:forUserId:completion:):ContactRespository.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "data[&quot;contacts&quot;]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in LogInVC.loginDidPress(_:):LogInVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -30,10 +49,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in ContactRespository.findUserContacts(fromCollection:forUserId:completion:):ContactRespository.swift">
+         contextName = "Contact.__allocating_init(id:dictionary:):Contact.swift">
          <PersistentStrings>
             <PersistentString
-               value = "db.collection(&quot;users&quot;)">
+               value = "dictionary">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

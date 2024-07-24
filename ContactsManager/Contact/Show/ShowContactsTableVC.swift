@@ -9,6 +9,9 @@ import UIKit
 import FirebaseAuth
 class ShowContactsTableVC: UITableViewController {
 
+    var selectedContact : Contact!
+    var userAuthId : String!
+    
     @IBOutlet var showContactsTV: UITableView!
     let service = ContactRespository() //An instance of our Service (class that works with firebase/firestore)
     var contacts = [Contact]() //An array holding all contacts from our database
@@ -44,7 +47,7 @@ class ShowContactsTableVC: UITableViewController {
             }
         */
         
-        let userAuthId = Auth.auth().currentUser?.uid
+        userAuthId = Auth.auth().currentUser?.uid
         print("User id in Show Contacts: \(userAuthId ?? "NIL")")
         //to access a subcollections we can also create references by specifying the path to a document or collection as a string, with path components separated by a forward slash (/)
         
@@ -106,6 +109,10 @@ class ShowContactsTableVC: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        selectedContact = contacts[indexPath.row]
+        return indexPath
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -142,14 +149,36 @@ class ShowContactsTableVC: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        if let viewContactsTVC = segue.destination as? ViewContactTVC{
+            viewContactsTVC.contact = selectedContact
+        }
     }
-    */
+    
 
+    @IBAction func unwindToShowTableVC(_ unwindSegue: UIStoryboardSegue) {
+        let sourceViewController = unwindSegue.source
+        // Use data from the view controller which initiated the unwind segue
+        
+        if sourceViewController is EditContactTVC {
+            if service.update(userId: userAuthId, contact: selectedContact){
+                 print("contact updated")
+            }
+            
+        }
+        
+        if sourceViewController is AddContactTVC {
+            if service.add(userId: userAuthId, contact: selectedContact){
+                print("contact saved")
+            }
+        }
+    }
+    
 }
