@@ -135,13 +135,12 @@ class ContactRespository {
             }else{
                 print("Contact was added")
             }
-            
         }
         
         return result
     }
     
-    func deleteContact(WithContactId contactId: String, for userId: String) -> Bool {
+    func deleteContact(withContactId contactId: String, for userId: String) -> Bool {
         var result = true
         
         db.collection("users/" + userId + "/contacts").document(contactId).delete(){ error in

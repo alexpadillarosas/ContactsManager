@@ -15,7 +15,7 @@ class ShowContactsTableVC: UITableViewController {
     @IBOutlet var showContactsTV: UITableView!
     let service = ContactRespository() //An instance of our Service (class that works with firebase/firestore)
     var contacts = [Contact]() //An array holding all contacts from our database
-    
+       
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -101,6 +101,7 @@ class ShowContactsTableVC: UITableViewController {
         //For the picture
         if !contact.photo.isEmpty && UIImage(named: contact.photo) != nil {
             cell.photoImageView.image = UIImage(named: contact.photo)
+            
         }else{//This else is needed to reset the default image, else gets cached it and display the wrong one whenever the image cannot be found in the project
             cell.photoImageView.image = UIImage(systemName: "person.circle.fill")
         }
@@ -108,11 +109,10 @@ class ShowContactsTableVC: UITableViewController {
         cell.photoImageView.layer.cornerRadius = cell.photoImageView.frame.size.width / 2
         cell.photoImageView.clipsToBounds = true
         
-        //adding some shadows
-//        cell.photoImageView.layer.masksToBounds = false;
-//        cell.photoImageView.layer.cornerRadius = 8;
-        
         /*
+        //adding some shadows
+        cell.photoImageView.layer.masksToBounds = false;
+        cell.photoImageView.layer.cornerRadius = 8;
         cell.photoImageView.layer.shadowOffset = CGSizeMake(5.0, 5.0);
         cell.photoImageView.layer.shadowRadius = 5;
         cell.photoImageView.layer.shadowOpacity = 0.5;
@@ -142,7 +142,7 @@ class ShowContactsTableVC: UITableViewController {
             let contact = contacts[indexPath.row]
             deleteConfirmationMessage(title: "Delete", message: "Are you sure you want to permanently delete \(contact.firstname) \(contact.lastname) ?", 
                 delete: {
-                    if self.service.deleteContact(WithContactId: contact.id, for: self.userAuthId) {
+                    if self.service.deleteContact(withContactId: contact.id, for: self.userAuthId) {
                         print("Contact Deleted")
                     }
                 }, cancel: {
