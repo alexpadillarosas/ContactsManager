@@ -67,7 +67,7 @@ class SignUpVC: UIViewController {
 //                            contacts: []  //the user has not contacts registered at this point
                             )
             
-            if self.service.addUser(user: user) {
+            if self.service.addUser(withData: user) {
                 print("User Added \(user.email)")
             }
             

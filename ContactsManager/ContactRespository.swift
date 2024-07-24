@@ -22,6 +22,7 @@ class ContactRespository {
 
         var contacts = [Contact]()
         _ = db.collection(name)
+            .order(by: "favourite", descending: true)
             .addSnapshotListener { snapshot, error in  //we add a listener, so we can listen for updates made to our db, it returns a current snapshot with the found data, and an error if there is any
                 if let documents = snapshot?.documents { //we unwrap the documents inside of the snapshot
                     
@@ -43,7 +44,7 @@ class ContactRespository {
             }
     }
     
-    func addUser(user: User ) -> Bool {
+    func addUser(withData user: User) -> Bool {
         var result = true
         let dictionary : [String: Any] = [
             "firstname": user.firstname as String,
@@ -72,7 +73,7 @@ class ContactRespository {
     }
     
     
-    func update(userId: String, contact: Contact) -> Bool {
+    func updateContact(for userId: String, withData contact: Contact) -> Bool {
         var result = true
 
         let dictionary : [String : Any] = [
@@ -97,7 +98,7 @@ class ContactRespository {
         return result
     }
     
-    func add(userId: String, contact: Contact) -> Bool {
+    func addContact(for userId: String, withData contact: Contact) -> Bool {
         var result = true
         //let userAuthId = Auth.auth().currentUser?.uid
         print("User id in Show Contacts: \(userId)")
@@ -110,7 +111,7 @@ class ContactRespository {
             "note": contact.note as String,
             "phone": contact.phone as String,
             "photo": contact.photo as String,
-//            "registered": FieldValue.serverTimestamp(),
+            "registered": FieldValue.serverTimestamp(),
             "tags": [String]()
         ]
         
@@ -125,7 +126,7 @@ class ContactRespository {
             
         }
          */
-        var newContactRef = db.collection("users").document(userId).collection("contacts").document()
+        let newContactRef = db.collection("users").document(userId).collection("contacts").document()
         
         newContactRef.setData(dictionary) { error in
             if let error = error {
@@ -137,6 +138,20 @@ class ContactRespository {
             
         }
         
+        return result
+    }
+    
+    func deleteContact(WithContactId contactId: String, for userId: String) -> Bool {
+        var result = true
+        
+        db.collection("users/" + userId + "/contacts").document(contactId).delete(){ error in
+            if let error = error {
+                print("Error removing document: \(error.localizedDescription)")
+                result = false
+            }else{
+                print("Document successfully deleted")
+            }
+        }
         return result
     }
     

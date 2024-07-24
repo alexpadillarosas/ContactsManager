@@ -89,7 +89,6 @@ class ShowContactsTableVC: UITableViewController {
         cell.fullNameLabel.text = contact.firstname + " " + contact.lastname
         cell.phoneLabel.text = contact.phone
         
-        
         if contact.favourite {
             //Since we have set the property Symbol Scale to Medium, whenever we set it programmatically, we have to specify it as well
             let smallStarImage = UIImage(systemName: "star.fill", withConfiguration: UIImage.SymbolConfiguration(scale: UIImage.SymbolScale.small))
@@ -98,13 +97,26 @@ class ShowContactsTableVC: UITableViewController {
             //we remove the image from the button
             cell.favouriteButton.setImage(UIImage(), for: UIControl.State.normal)
         }
-        //For the picture   
         
+        //For the picture
         if !contact.photo.isEmpty && UIImage(named: contact.photo) != nil {
             cell.photoImageView.image = UIImage(named: contact.photo)
         }else{//This else is needed to reset the default image, else gets cached it and display the wrong one whenever the image cannot be found in the project
             cell.photoImageView.image = UIImage(systemName: "person.circle.fill")
         }
+        //Round the Image View
+        cell.photoImageView.layer.cornerRadius = cell.photoImageView.frame.size.width / 2
+        cell.photoImageView.clipsToBounds = true
+        
+        //adding some shadows
+//        cell.photoImageView.layer.masksToBounds = false;
+//        cell.photoImageView.layer.cornerRadius = 8;
+        
+        /*
+        cell.photoImageView.layer.shadowOffset = CGSizeMake(5.0, 5.0);
+        cell.photoImageView.layer.shadowRadius = 5;
+        cell.photoImageView.layer.shadowOpacity = 0.5;
+        */
         
         return cell
     }
@@ -122,17 +134,28 @@ class ShowContactsTableVC: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            
+            let contact = contacts[indexPath.row]
+            deleteConfirmationMessage(title: "Delete", message: "Are you sure you want to permanently delete \(contact.firstname) \(contact.lastname) ?", 
+                delete: {
+                    if self.service.deleteContact(WithContactId: contact.id, for: self.userAuthId) {
+                        print("Contact Deleted")
+                    }
+                }, cancel: {
+                    print("Cancelled")
+                })
+            
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            //tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
@@ -168,14 +191,14 @@ class ShowContactsTableVC: UITableViewController {
         // Use data from the view controller which initiated the unwind segue
         
         if sourceViewController is EditContactTVC {
-            if service.update(userId: userAuthId, contact: selectedContact){
+            if service.updateContact(for: userAuthId, withData: selectedContact){
                  print("contact updated")
             }
             
         }
         
         if sourceViewController is AddContactTVC {
-            if service.add(userId: userAuthId, contact: selectedContact){
+            if service.addContact(for: userAuthId, withData: selectedContact){
                 print("contact saved")
             }
         }

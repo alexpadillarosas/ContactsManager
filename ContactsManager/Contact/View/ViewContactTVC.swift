@@ -20,10 +20,6 @@ class ViewContactTVC: UITableViewController {
     @IBOutlet weak var registeredAtLabel: UILabel!
     @IBOutlet weak var favouriteSwitch: UISwitch!
     
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,12 +37,10 @@ class ViewContactTVC: UITableViewController {
         
         let aDate = contact.registered.dateValue()
         let formatter = DateFormatter()
-//        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let formattedTimeZoneStr = formatter.string(from: aDate)
         print(formattedTimeZoneStr)
         registeredAtLabel.text = formattedTimeZoneStr
-        
         
     }
 

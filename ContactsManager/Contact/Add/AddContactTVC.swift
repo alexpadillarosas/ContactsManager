@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class AddContactTVC: UITableViewController {
 
@@ -104,6 +105,7 @@ class AddContactTVC: UITableViewController {
                                   photo: photoTextField.text!,
                                   note: notesTextField.text!,
                                   favourite: favouriteSwitch.isOn,
+                                  registered: Timestamp(date: Date()),
                                   tags: [String]())
             
             showContactsTVC.selectedContact = contact
