@@ -16,7 +16,7 @@ class SignUpVC: UIViewController {
     @IBOutlet weak var passwordConfirmationTextField: UITextField!
     @IBOutlet weak var logInActivityIndicatorView: UIActivityIndicatorView!
     
-    let service = ContactRespository()
+    let service = Repository()
     
     override func viewDidLoad() {
         super.viewDidLoad()

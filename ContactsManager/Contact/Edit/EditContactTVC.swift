@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 
 class EditContactTVC: UITableViewController {
     
@@ -19,13 +19,9 @@ class EditContactTVC: UITableViewController {
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var notesTextField: UITextField!
+    @IBOutlet weak var photoImageView: UIImageView!
     
-    
-    
-    
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,68 +37,19 @@ class EditContactTVC: UITableViewController {
         phoneTextField.text = contact.phone
         emailTextField.text = contact.email
         notesTextField.text = contact.note
+        
+        //For the image
+        if !contact.photo.isEmpty && UIImage(named: contact.photo) != nil {
+            photoImageView.image = UIImage(named: contact.photo)
+            
+        }else{//This else is needed to reset the default image, else gets cached it and display the wrong one whenever the image cannot be found in the project
+            photoImageView.image = UIImage(systemName: "person.circle.fill")
+        }
+        //Round the Image View
+        photoImageView.layer.cornerRadius = photoImageView.frame.size.width / 2
+        photoImageView.clipsToBounds = true
+        
     }
-    
-
-    
-
-    // MARK: - Table view data source
-
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 0
-//    }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
     // MARK: - Navigation
 
@@ -111,17 +58,25 @@ class EditContactTVC: UITableViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         
-//        let destinationVC = segue.destination
-        
-        if let showContactsTVC = segue.destination as? ShowContactsTableVC {
+        // placed this if conditional as a safeguard, so whenever we create a segue to go to another view controller,
+        // this code won't break, it will only work when going back to ShowContactsTableVC
+        if segue.destination is ShowContactsTVC {
             
+            //Get all possible changes done in the UI
             contact.firstname = firstnameTextField.text!
             contact.lastname = lastnameTextField.text!
             contact.email = emailTextField.text!
             contact.favourite = favouriteSwitch.isOn
             contact.phone = phoneTextField.text!
             contact.note = notesTextField.text!
-            showContactsTVC.selectedContact = contact
+            
+            let service = Repository()
+            //Get the logged user Id
+            let userAuthId = Auth.auth().currentUser?.uid
+            //Update the contact
+            if service.updateContact(for: userAuthId!, withData: contact){
+                 print("contact updated")
+            }
         }
         
     }

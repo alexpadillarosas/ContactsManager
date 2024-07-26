@@ -16,9 +16,11 @@ class ViewContactTVC: UITableViewController {
 
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var phoneButton: UIButton!
-    @IBOutlet weak var noteTextField: UITextField!
+    @IBOutlet weak var notesLabel: UILabel!
+    
     @IBOutlet weak var registeredAtLabel: UILabel!
     @IBOutlet weak var favouriteSwitch: UISwitch!
+    @IBOutlet weak var photoImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +30,10 @@ class ViewContactTVC: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
+
         fullnameLabel.text = contact.firstname + " " + contact.lastname
         phoneButton.setTitle(contact.phone, for: UIControl.State.normal)
-        noteTextField.text = contact.note
+        notesLabel.text = contact.note
         favouriteSwitch.setOn(contact.favourite, animated: true)
         emailButton.setTitle(contact.email, for: UIControl.State.normal)
         
@@ -42,64 +44,20 @@ class ViewContactTVC: UITableViewController {
         print(formattedTimeZoneStr)
         registeredAtLabel.text = formattedTimeZoneStr
         
+        //For the image
+        if !contact.photo.isEmpty && UIImage(named: contact.photo) != nil {
+            photoImageView.image = UIImage(named: contact.photo)
+            
+        }else{//This else is needed to reset the default image, else gets cached it and display the wrong one whenever the image cannot be found in the project
+            photoImageView.image = UIImage(systemName: "person.circle.fill")
+        }
+        //Round the Image View
+        photoImageView.layer.cornerRadius = photoImageView.frame.size.width / 2
+        photoImageView.clipsToBounds = true
+         
+        
     }
 
-    // MARK: - Table view data source
-
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 0
-//    }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     
     // MARK: - Navigation

@@ -7,13 +7,15 @@
 
 import UIKit
 import FirebaseAuth
-class ShowContactsTableVC: UITableViewController {
+class ShowContactsTVC: UITableViewController {
 
     var selectedContact : Contact!
     var userAuthId : String!
     
-    @IBOutlet var showContactsTV: UITableView!
-    let service = ContactRespository() //An instance of our Service (class that works with firebase/firestore)
+    //This is a reference to the UITableViewController in the storyboard, so we can programmatically manipulate it
+    @IBOutlet var showContactsTVC: UITableView!
+    
+    let service = Repository() //An instance of our Service (class that works with firebase/firestore)
     var contacts = [Contact]() //An array holding all contacts from our database
        
     override func viewDidLoad() {
@@ -55,7 +57,7 @@ class ShowContactsTableVC: UITableViewController {
         
         service.findUserContacts(fromCollection: "users/" + userAuthId! + "/contacts"){  (returnedCollection) in
             self.contacts = returnedCollection
-            self.showContactsTV.reloadData()
+            self.showContactsTVC.reloadData()
         }
 
         print("total \(contacts.count)")
@@ -63,7 +65,6 @@ class ShowContactsTableVC: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // return the number of sections
         return 1
@@ -81,8 +82,8 @@ class ShowContactsTableVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! ContactTVCell
         
-        //Get the data (Contact) we will display on this cell
-        
+        /**Get the data (Contact) we will display on this cell, since iOS give as the row the for which this method is being executed in the parameter indexPath, we can use the index to get that specific contact in the array
+         */
         let contact = contacts[indexPath.row]
 
         // Configure the cell...
@@ -109,18 +110,13 @@ class ShowContactsTableVC: UITableViewController {
         cell.photoImageView.layer.cornerRadius = cell.photoImageView.frame.size.width / 2
         cell.photoImageView.clipsToBounds = true
         
-        /*
-        //adding some shadows
-        cell.photoImageView.layer.masksToBounds = false;
-        cell.photoImageView.layer.cornerRadius = 8;
-        cell.photoImageView.layer.shadowOffset = CGSizeMake(5.0, 5.0);
-        cell.photoImageView.layer.shadowRadius = 5;
-        cell.photoImageView.layer.shadowOpacity = 0.5;
-        */
         
         return cell
     }
     
+    /**
+        This method will set selectedContact with the contact's data selected by the user in the UI ( when the user tap on the table view controller)
+     */
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         selectedContact = contacts[indexPath.row]
         return indexPath
@@ -135,12 +131,16 @@ class ShowContactsTableVC: UITableViewController {
     */
 
     
-    // Override to support editing the table view.
+    /**
+     This method enables delete and edit on the TableViewController
+     We will only use delete
+     */
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
             let contact = contacts[indexPath.row]
-            deleteConfirmationMessage(title: "Delete", message: "Are you sure you want to permanently delete \(contact.firstname) \(contact.lastname) ?", 
+            deleteConfirmationMessage(title: "Delete", 
+                                      message: "Are you sure you want to permanently delete \(contact.firstname) \(contact.lastname) ?",
                 delete: {
                     if self.service.deleteContact(withContactId: contact.id, for: self.userAuthId) {
                         print("Contact Deleted")
@@ -185,22 +185,20 @@ class ShowContactsTableVC: UITableViewController {
         }
     }
     
-
+    /**
+     We need this method since we use unwind segue from 2 places to this TableViewController:
+     EditContactTVC and AddContactTVC
+     */
     @IBAction func unwindToShowTableVC(_ unwindSegue: UIStoryboardSegue) {
         let sourceViewController = unwindSegue.source
         // Use data from the view controller which initiated the unwind segue
         
         if sourceViewController is EditContactTVC {
-            if service.updateContact(for: userAuthId, withData: selectedContact){
-                 print("contact updated")
-            }
             
         }
         
         if sourceViewController is AddContactTVC {
-            if service.addContact(for: userAuthId, withData: selectedContact){
-                print("contact saved")
-            }
+            
         }
     }
     

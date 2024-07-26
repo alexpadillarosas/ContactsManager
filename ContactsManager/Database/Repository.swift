@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-class ContactRespository {
+class Repository {
     var db = Firestore.firestore()
     
     
