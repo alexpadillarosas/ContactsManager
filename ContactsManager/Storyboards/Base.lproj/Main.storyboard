@@ -26,7 +26,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H6g-at-pQZ" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="632"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="mmmm@mailinator.com" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fod-et-PWY">
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fod-et-PWY">
                                                 <rect key="frame" x="16" y="294" width="288" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="fod-et-PWY" secondAttribute="height" multiplier="144:17" id="QrW-fW-yMv"/>
@@ -35,7 +35,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="12345678" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="gyx-Ey-cKs">
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="gyx-Ey-cKs">
                                                 <rect key="frame" x="16" y="341" width="288" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="gyx-Ey-cKs" secondAttribute="height" multiplier="144:17" id="J2g-f4-LaT"/>
