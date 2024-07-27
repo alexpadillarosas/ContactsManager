@@ -38,7 +38,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in ContactRespository.find(collection:completion:):ContactRespository.swift">
+         contextName = "closure #1 in ShowContactsTableVC.viewDidLoad():ShowContactsTableVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "specialized closure #1 in Repository.findUser(for:completion:):Repository.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "snapshot.documentID">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #1 in LogInVC.loginDidPress(_:):LogInVC.swift">
@@ -57,7 +65,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in ShowContactsTableVC.viewDidLoad():ShowContactsTableVC.swift">
+         contextName = "closure #1 in closure #1 in ContactRespository.find(collection:completion:):ContactRespository.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

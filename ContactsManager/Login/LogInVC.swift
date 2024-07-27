@@ -63,15 +63,6 @@ class LogInVC: UIViewController {
                 
         }
             
-//            self?.showAlertMessage(title: "Success", message: "Logged In")
-            
-//            if let authUser = Auth.auth().currentUser?.reload(completion: { error in
-//                <#code#>
-//            }).isEmailVerified
-            
-            let uid = Auth.auth().currentUser?.uid ?? ""
-            print("Log in: \(uid)")
-            
     }
     
     

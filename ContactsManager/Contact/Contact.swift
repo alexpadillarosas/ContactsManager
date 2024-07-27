@@ -52,7 +52,7 @@ class Contact {
                   favourite: favourite,
                   registered: registered,
                   tags: tags)
-//        self.registered = registered
+
         self.id = id
     }
 

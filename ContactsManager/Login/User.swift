@@ -16,7 +16,19 @@ class User {
     var phone: String
     var photo: String
     var registered: Timestamp!
-    var contacts: [Contact] = [Contact]() //initialize the contacts collection to not be nil
+//    var contacts: [Contact] = [Contact]() //initialize the contacts collection to not be nil
+    
+    
+    
+    init(id: String, firstname: String, lastname: String, email: String, phone: String, photo: String) {
+        self.id = id
+        self.firstname = firstname
+        self.lastname = lastname
+        self.email = email
+        self.phone = phone
+        self.photo = photo
+        
+    }
     
     init(id: String, firstname: String, lastname: String, email: String, phone: String, photo: String, registered: Timestamp? = nil) {
         self.id = id
@@ -28,6 +40,8 @@ class User {
         self.registered = registered
     }
     
+
+    
     convenience init (id: String , dictionary: [String: Any]){
         self.init(id: id,
                   firstname: dictionary["firstname"] as! String,
@@ -38,6 +52,10 @@ class User {
                   registered: dictionary["registered"] as? Timestamp
                 
         )
+    }
+    
+    func toString() -> String {
+        return "id: \(id ?? "NO ID"), firstname: \(firstname), lastname: \(lastname), email: \(email), phone: \(phone), photo: \(photo), registered: \(registered ?? Timestamp(date: Date()))"
     }
     
 }

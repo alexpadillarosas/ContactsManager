@@ -64,7 +64,6 @@ class SignUpVC: UIViewController {
                             phone: "",
                             photo: ""
 //                            registered: ,//We can ommit it, as it's declared as param with default value nil
-//                            contacts: []  //the user has not contacts registered at this point
                             )
             
             if self.service.addUser(withData: user) {
@@ -75,7 +74,7 @@ class SignUpVC: UIViewController {
             // The commented code below it's an option but since we need to go to the previous view controller
             // and SignUpVC is connected to the same navigation controller, we can just use it to go back to
             // the previous view controller
-            
+
             /*
             let loginViewController = self.storyboard?.instantiateViewController(identifier: "LoginVC") as? UINavigationController
             
