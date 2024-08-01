@@ -7,20 +7,29 @@ This is an application example using
   * Firebase Auth
   * Cloud Firestore
 
+
+**Table of Contents**
+
+[TOCM]
+
+[TOC]
+
+### Firebase
 For this project to work, go to https://www.firebase.com
 * Create an account (if you don't have one already)
-* Create a project
+* Create an iOS project, do not forget to match the bundle id of your project, in this case **com.iosapps.contactsmanager**
+   <kbd><img src="https://github.com/user-attachments/assets/cc3252cc-1cbf-4e38-9abf-ac54f560df51" /></kbd>
 
 
-Cloud Firestore:
 
-Data Model:
-Main collection: 
+### Cloud Firestore:
 
+* Data Model:
+ * Main collection: (It has a subcollection called contacts, will be shown below the image)
+<kbd><img src="https://github.com/user-attachments/assets/93103a96-3c81-4d40-8813-3798497bd7fa" /></kbd>
+ * Subcollection:
+<kbd><img src="https://github.com/user-attachments/assets/1d7a6966-a7c5-420c-ab5a-81148a20b57a" /></kbd>
 
-![Screenshot 2024-08-01 at 1 46 39 PM](https://github.com/user-attachments/assets/326aa8db-fc02-4c64-b068-91f0d324e39f)
-
-![Screenshot 2024-08-01 at 1 47 52 PM](https://github.com/user-attachments/assets/d770175f-fef5-42f6-a464-4a0af377e8fd)
 
 
 ## More to come
