@@ -7,6 +7,11 @@ This is an application example using
   * Firebase Auth
   * Cloud Firestore
 
+
+### Video
+
+https://drive.google.com/file/d/1qf47JB2NC6a5H3NRENiM9cvKCVf2jw-n/view?usp=drive_link
+
 ### Screenshots
 
 LogIn  | SignUp
@@ -18,16 +23,6 @@ LogIn  | SignUp
 <kbd><img src="https://github.com/user-attachments/assets/0d2f4853-0bf8-400e-9ffe-e3534665ee18" width="70%"></kbd> | <kbd><img src="https://github.com/user-attachments/assets/a524d61e-a227-43a7-9adc-da6d005722c8" width="70%"></kbd>
 
 
-### Video
-
-https://drive.google.com/file/d/1qf47JB2NC6a5H3NRENiM9cvKCVf2jw-n/view?usp=drive_link
-
-**Table of Contents**
-
-[TOCM]
-
-[TOC]
-
 ### Firebase
 For this project to work, go to https://www.firebase.com
 * Create an account (if you don't have one already)
@@ -35,6 +30,8 @@ For this project to work, go to https://www.firebase.com
    <kbd><img src="https://github.com/user-attachments/assets/cc3252cc-1cbf-4e38-9abf-ac54f560df51" /></kbd>
 
 
+### Authentication
+* Add Email/Password as Sign-in method
 
 ### Cloud Firestore:
 
@@ -43,11 +40,6 @@ For this project to work, go to https://www.firebase.com
 <kbd><img src="https://github.com/user-attachments/assets/93103a96-3c81-4d40-8813-3798497bd7fa" /></kbd>
  * Subcollection:
 <kbd><img src="https://github.com/user-attachments/assets/1d7a6966-a7c5-420c-ab5a-81148a20b57a" /></kbd>
-
-
-
-## More to come
-Screenshots and app's description.
 
 
 
