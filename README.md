@@ -1,11 +1,14 @@
 # Contacts Manager
-This is an application example using 
+- This is an application example used to learn coding iOS apps
+- It uses Backend as a service (BaaS) cloud-computing model
+
+## Components
 * Xcode
-* Storyboard
+* Storyboard ( UIKit )
 * Swift
   * Package Manager
 * Firebase
-  * Firebase Auth
+  * Firebase Authentication
   * Cloud Firestore
 
 
