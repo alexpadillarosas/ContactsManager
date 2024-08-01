@@ -3,6 +3,7 @@ This is an application example using
 * Xcode
 * Storyboard
 * Swift
+  * Package Manager
 * Firebase
   * Firebase Auth
   * Cloud Firestore
