@@ -53,12 +53,12 @@ The source code in this repository is provided to you “as is”, without warra
 Improvements to the source code are greatly appreciated, and will be done under the limits of learning scope.
 Any contribution made to the author does not imply any additional benefit more than what the source code provides.
 
-
+<!---
 If you enjoyed this example, and want to make my day:
 <p align="center">
 <a href="https://www.buymeacoffee.com/curlylemonpeel" target="_blank" !important;><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important; " ></a>
 <a href="https://github.com/user-attachments/assets/54b0bd0e-e1a8-47dd-87f1-f74bc4532bc1" target="_blank"><img src="https://github.com/user-attachments/assets/54b0bd0e-e1a8-47dd-87f1-f74bc4532bc1" alt="Buy Me A Coffee QRcode" style="height: 10% !important;width: 10% !important;"></a>
 </p>
 
-
+-->
 
