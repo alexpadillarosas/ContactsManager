@@ -40,9 +40,9 @@ For this project to work, go to https://www.firebase.com
 ### Cloud Firestore:
 
 * Data Model:
- * Main collection: (It has a subcollection called contacts, will be shown below the image)
+ * Main collection: Users (It has a subcollection called contacts, will be shown below the image)
 <kbd><img src="https://github.com/user-attachments/assets/9b6a71e5-26b7-465e-837a-c32cfce9e8f5" /></kbd>
- * Subcollection:
+ * Subcollection: Contacts
 <kbd><img src="https://github.com/user-attachments/assets/1d7a6966-a7c5-420c-ab5a-81148a20b57a" /></kbd>
 
 
