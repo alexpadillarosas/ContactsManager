@@ -1,30 +1,49 @@
 # Contacts Manager
-This is an application example using 
+- This is an application example used to learn coding iOS apps
+- It uses Backend as a service (BaaS) cloud-computing model
+
+## Components
 * Xcode
-* Storyboard
+* Storyboard ( UIKit )
 * Swift
+  * Package Manager
 * Firebase
-  * Firebase Auth
+  * Firebase Authentication
   * Cloud Firestore
 
+
+### Video
+
+https://drive.google.com/file/d/1qf47JB2NC6a5H3NRENiM9cvKCVf2jw-n/view?usp=drive_link
+
+### Screenshots
+
+LogIn  | SignUp
+:-------------------------:|:-------------------------:
+<kbd><img src="https://github.com/user-attachments/assets/33edb18d-bd41-40f6-b89e-d47dfe429cd5" width="70%"></kbd> | <kbd><img src="https://github.com/user-attachments/assets/0021d9cf-16c1-4f22-b138-f22ef34ddb86" width="70%"></kbd>
+**Show Contacts**  | **Edit Contact**
+<kbd><img src="https://github.com/user-attachments/assets/c5cd68b6-614b-4cb4-8297-68238caa19c6" width="70%"></kbd> | <kbd><img src="https://github.com/user-attachments/assets/c23fafce-1b60-41e8-b893-709569580108" width="70%"></kbd>
+**Delete Contact**  | **Profile**
+<kbd><img src="https://github.com/user-attachments/assets/0d2f4853-0bf8-400e-9ffe-e3534665ee18" width="70%"></kbd> | <kbd><img src="https://github.com/user-attachments/assets/a524d61e-a227-43a7-9adc-da6d005722c8" width="70%"></kbd>
+
+
+### Firebase
 For this project to work, go to https://www.firebase.com
 * Create an account (if you don't have one already)
-* Create a project
+* Create an iOS project, do not forget to match the bundle id of your project, in this case **com.iosapps.contactsmanager**
+   <kbd><img src="https://github.com/user-attachments/assets/cc3252cc-1cbf-4e38-9abf-ac54f560df51" /></kbd>
 
 
-Cloud Firestore:
+### Authentication
+* Add Email/Password as Sign-in method
 
-Data Model:
-Main collection: 
+### Cloud Firestore:
 
-
-![Screenshot 2024-08-01 at 1 46 39 PM](https://github.com/user-attachments/assets/326aa8db-fc02-4c64-b068-91f0d324e39f)
-
-![Screenshot 2024-08-01 at 1 47 52 PM](https://github.com/user-attachments/assets/d770175f-fef5-42f6-a464-4a0af377e8fd)
-
-
-## More to come
-Screenshots and app's description.
+* Data Model:
+ * Main collection: Users (It has a subcollection called contacts, will be shown below the image)
+<kbd><img src="https://github.com/user-attachments/assets/9b6a71e5-26b7-465e-837a-c32cfce9e8f5" /></kbd>
+ * Subcollection: Contacts
+<kbd><img src="https://github.com/user-attachments/assets/1d7a6966-a7c5-420c-ab5a-81148a20b57a" /></kbd>
 
 
 
