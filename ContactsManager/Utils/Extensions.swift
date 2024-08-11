@@ -23,6 +23,17 @@ extension Optional where Wrapped == String {
     }
 }
 
+extension String {
+    var isBlank : Bool {
+//        if self.isEmpty || self == " " {
+//            return true
+//        }
+//        return false
+        
+        return self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+}
+
 extension Optional where Wrapped  == String {
     var isValidEmail: Bool {
         let emailRegEx = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{1,4}$"

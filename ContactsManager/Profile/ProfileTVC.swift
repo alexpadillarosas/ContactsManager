@@ -7,6 +7,8 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
+import UniformTypeIdentifiers
 class ProfileTVC: UITableViewController {
 
     @IBOutlet weak var registerAtDatePicker: UIDatePicker!
@@ -14,6 +16,7 @@ class ProfileTVC: UITableViewController {
     @IBOutlet weak var lastnameTextField: UITextField!
     @IBOutlet weak var firstnameTextField: UITextField!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var dobDatePicker: UIDatePicker!
     
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
     
@@ -42,11 +45,14 @@ class ProfileTVC: UITableViewController {
             self.phoneTextField.text = self.user.phone
             self.emailLabel.text = self.user.email
             
+            let dobValue = self.user.dob.dateValue()
+            self.dobDatePicker.setDate(dobValue, animated: true)
+            
+            
             let dateValue = self.user.registered.dateValue()
             self.registerAtDatePicker.setDate(dateValue, animated: true)
             self.saveBarButtonItem.isEnabled = true
         }
-        
         
     }
 
@@ -54,12 +60,19 @@ class ProfileTVC: UITableViewController {
      Method used to save user's information
      */
     @IBAction func saveButtonDidPress(_ sender: Any) {
+        
+        if !firstnameTextField.text.isBlank && !lastnameTextField.text.isBlank {
+            
+        }
+        
         let user = User(id: user.id,
                         firstname: firstnameTextField.text!,
                         lastname: lastnameTextField.text!,
                         email: emailLabel.text!,
                         phone: phoneTextField.text!,
-                        photo: "")
+                        photo: "",
+                        dob: Timestamp(date: dobDatePicker.date)
+        )
         
        _ = service.updateUser(withData: user)
         

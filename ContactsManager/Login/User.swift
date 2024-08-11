@@ -15,8 +15,9 @@ class User {
     var email: String
     var phone: String
     var photo: String
+    var dob: Timestamp!
     var registered: Timestamp!
-//    var contacts: [Contact] = [Contact]() //initialize the contacts collection to not be nil
+    
     
     
     
@@ -30,13 +31,14 @@ class User {
         
     }
     
-    init(id: String, firstname: String, lastname: String, email: String, phone: String, photo: String, registered: Timestamp? = nil) {
+    init(id: String, firstname: String, lastname: String, email: String, phone: String, photo: String, dob: Timestamp ,registered: Timestamp? = nil) {
         self.id = id
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
         self.phone = phone
         self.photo = photo
+        self.dob = dob
         self.registered = registered
     }
     
@@ -49,6 +51,7 @@ class User {
                   email: dictionary["email"] as! String,
                   phone: dictionary["phone"] as! String,
                   photo: dictionary["photo"] as! String,
+                  dob: dictionary["dob"] as! Timestamp,
                   registered: dictionary["registered"] as? Timestamp
                 
         )

@@ -3,44 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ViewContactTVC.viewDidLoad():ViewContactTVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "contact.registered.description">
-            </PersistentString>
-            <PersistentString
-               value = "contact.registered.dateValue.hour">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in ContactRespository.findUserContacts(fromCollection:forUserId:completion:):ContactRespository.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "data[&quot;contacts&quot;]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ContactRespository.findUserContacts(fromCollection:forUserId:completion:):ContactRespository.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "db.collection(&quot;users&quot;)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in ShowContactsTableVC.viewDidLoad():ShowContactsTableVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "queryDocumentSnapshot.reference.collection(&quot;contacts&quot;)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ShowContactsTableVC.viewDidLoad():ShowContactsTableVC.swift">
-      </ContextState>
-      <ContextState
          contextName = "specialized closure #1 in Repository.findUser(for:completion:):Repository.swift">
          <PersistentStrings>
             <PersistentString
@@ -66,6 +28,71 @@
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #1 in ContactRespository.find(collection:completion:):ContactRespository.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ContactRespository.findUserContacts(fromCollection:forUserId:completion:):ContactRespository.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "db.collection(&quot;users&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShowContactsTVC.viewDidLoad():ShowContactsTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationController?.topViewController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in ShowContactsTableVC.viewDidLoad():ShowContactsTableVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "queryDocumentSnapshot.reference.collection(&quot;contacts&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ShowContactsTableVC.viewDidLoad():ShowContactsTableVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewContactTVC.viewDidLoad():ViewContactTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "contact.registered.description">
+            </PersistentString>
+            <PersistentString
+               value = "contact.registered.dateValue.hour">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ShowContactsTVC.tableView(_:commit:forRowAt:):ShowContactsTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in ContactRespository.findUserContacts(fromCollection:forUserId:completion:):ContactRespository.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data[&quot;contacts&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileTVC.viewDidLoad():ProfileTVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShowContactsTVC.tableView(_:commit:forRowAt:):ShowContactsTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

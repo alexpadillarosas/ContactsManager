@@ -7,8 +7,24 @@
 
 import UIKit
 import FirebaseAuth
-class ShowContactsTVC: UITableViewController {
+/**
 
+ */
+class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
+
+    /**
+     Search Block
+     For the searchBar to work we need to make ShowContactsTVC implement UISearchBarDelegete protocol and then implement the function that will perform the search,
+     in this case we call it:    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+     */
+    @IBOutlet weak var searchUiSearchBar: UISearchBar!
+    //This variable tracks whether the user is performing a search or not.
+    var searching = false
+    //This array will keep only the row number of the contacts that satisfies the search
+    var matches = [Int]()
+
+    
+    
     var selectedContact : Contact!
     var userAuthId : String!
     
@@ -26,7 +42,7 @@ class ShowContactsTVC: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
+
         /*
         var users = [User]()
         _ = service.db.collection("users")
@@ -62,6 +78,8 @@ class ShowContactsTVC: UITableViewController {
 
         print("total \(contacts.count)")
         
+        
+        
     }
 
     // MARK: - Table view data source
@@ -72,10 +90,11 @@ class ShowContactsTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // return the number of rows
-        return contacts.count
+        // If a search is being perfomed, the number of rows to display in the TVC will be comming from the filtered array: matches.
+        // else we will get all contacts from the contacts array
+        return searching ? matches.count : contacts.count
     }
 
-    
     /**
      iOS will call this method whenever the row appears on the scene
      */
@@ -84,7 +103,11 @@ class ShowContactsTVC: UITableViewController {
         
         /**Get the data (Contact) we will display on this cell, since iOS give as the row the for which this method is being executed in the parameter indexPath, we can use the index to get that specific contact in the array
          */
-        let contact = contacts[indexPath.row]
+
+        //Now that we have implemented the search functionality, we will get data depending on searching.
+        //When true, we get the only the contacts whose indexes have been stored in the matches array.
+        //else we will get all contacts.
+        let contact = searching ? contacts[matches[indexPath.row]] : contacts[indexPath.row]
 
         // Configure the cell...
         cell.fullNameLabel.text = contact.firstname + " " + contact.lastname
@@ -130,7 +153,6 @@ class ShowContactsTVC: UITableViewController {
     }
     */
 
-    
     /**
      This method enables delete and edit on the TableViewController
      We will only use delete
@@ -138,12 +160,17 @@ class ShowContactsTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let contact = contacts[indexPath.row]
-            deleteConfirmationMessage(title: "Delete", 
+            //Get the contact depending if we are performing a search or not
+            let contact = searching ? contacts[matches[indexPath.row]] : contacts[indexPath.row]
+            deleteConfirmationMessage(title: "Delete",
                                       message: "Are you sure you want to permanently delete \(contact.firstname) \(contact.lastname) ?",
                 delete: {
                     if self.service.deleteContact(withContactId: contact.id, for: self.userAuthId) {
                         print("Contact Deleted")
+                        //If we perform the delete action while searching, then we also need to delete index from that array
+                        if self.searching {
+                            self.matches.remove(at: indexPath.row)
+                        }
                     }
                 }, cancel: {
                     print("Cancelled")
@@ -171,7 +198,33 @@ class ShowContactsTVC: UITableViewController {
         return true
     }
     */
-
+    
+    /**
+     Funtion
+     */
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("\(searchText)")
+        if !searchText.isBlank {
+            searching = true
+            matches.removeAll()
+            
+            var fullname : String
+            for index in 0..<contacts.count {
+                fullname = contacts[index].firstname + " " + contacts[index].lastname
+                if fullname.lowercased().contains(searchText.lowercased()) {
+                    matches.append(index)
+                }
+            }
+            print("found \(matches.count) matches")
+        }else{
+            searching = false
+        }
+        print("searching: \(searching)")
+        self.showContactsTVC.reloadData()
+    }
+    
+    
     
     // MARK: - Navigation
 

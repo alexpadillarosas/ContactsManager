@@ -101,7 +101,8 @@ class Repository {
             "firstname": user.firstname as String,
             "lastname": user.lastname as String,
             "phone": user.phone as String,
-            "photo": user.photo as String
+            "photo": user.photo as String,
+            "dob": user.dob as Timestamp
         ]
         
         db.collection("users").document(user.id).updateData(dictionary){ error in
