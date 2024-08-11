@@ -24,12 +24,7 @@ extension Optional where Wrapped == String {
 }
 
 extension String {
-    var isBlank : Bool {
-//        if self.isEmpty || self == " " {
-//            return true
-//        }
-//        return false
-        
+    var isBlank : Bool {        
         return self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
