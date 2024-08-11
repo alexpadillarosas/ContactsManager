@@ -12,6 +12,9 @@ import FirebaseAuth
  */
 class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
 
+    @IBOutlet weak var MyNav: UINavigationItem!
+    
+    
     /**
      Search Block
      For the searchBar to work we need to make ShowContactsTVC implement UISearchBarDelegete protocol and then implement the function that will perform the search,
@@ -65,6 +68,11 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
             }
         */
         
+        //here we want to have a reference to the tab bar item icon, so we can add a badge with the number of contacts
+        let contactsNC = self.parent as! ContactsNC
+        contactsNC.contactsTabBarItem.badgeColor = .systemBlue
+
+        
         userAuthId = Auth.auth().currentUser?.uid
         print("User id in Show Contacts: \(userAuthId ?? "NIL")")
         //to access a subcollections we can also create references by specifying the path to a document or collection as a string, with path components separated by a forward slash (/)
@@ -74,11 +82,11 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
         service.findUserContacts(fromCollection: "users/" + userAuthId! + "/contacts"){  (returnedCollection) in
             self.contacts = returnedCollection
             self.showContactsTVC.reloadData()
+            //We update the badge on the contacts item to inform the user the number of contacts registered in the app
+            contactsNC.contactsTabBarItem.badgeValue = "\(self.contacts.count)"
         }
 
         print("total \(contacts.count)")
-        
-        
         
     }
 
@@ -115,11 +123,12 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
         
         if contact.favourite {
             //Since we have set the property Symbol Scale to Medium, whenever we set it programmatically, we have to specify it as well
-            let smallStarImage = UIImage(systemName: "star.fill", withConfiguration: UIImage.SymbolConfiguration(scale: UIImage.SymbolScale.small))
-            cell.favouriteButton.setImage(smallStarImage, for: UIControl.State.normal)
+            let largeStarImage = UIImage(systemName: "star.fill", withConfiguration: UIImage.SymbolConfiguration(scale: UIImage.SymbolScale.large))
+            cell.favouriteButton.setImage(largeStarImage, for: UIControl.State.normal)
         }else {
             //we remove the image from the button
-            cell.favouriteButton.setImage(UIImage(), for: UIControl.State.normal)
+            let largeStarImage = UIImage(systemName: "star", withConfiguration: UIImage.SymbolConfiguration(scale: UIImage.SymbolScale.large))
+            cell.favouriteButton.setImage(largeStarImage, for: UIControl.State.normal)
         }
         
         //For the picture
@@ -133,6 +142,12 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
         cell.photoImageView.layer.cornerRadius = cell.photoImageView.frame.size.width / 2
         cell.photoImageView.clipsToBounds = true
         
+        /**
+         This code is only to store the row number in the buttons tag
+         */
+        cell.callButton.tag = indexPath.row
+        // Add a target to your button making sure that you return the sender like so: ( before doing this, create the method callButtonDidPress
+        cell.callButton.addTarget(self, action: #selector(callButtonDidPress(sender:)), for: UIControl.Event.touchUpInside)
         
         return cell
     }
@@ -200,7 +215,8 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
     */
     
     /**
-     Funtion
+     Function that performs the search using the UISearchBar we dropped in the Storyboard, for this to work you must make this class ShowContactsTVC to conform 
+     UISearchBarDelegate protocol
      */
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -224,7 +240,20 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
         self.showContactsTVC.reloadData()
     }
     
-    
+    /**
+     Function that handles touches for the phone icon
+     */
+    @objc func callButtonDidPress(sender: UIButton) {
+        // Now you can easily access the sender's tag, (which is equal to the indexPath.row of the tapped button)
+        // Access the selected cell's index path using the sender's tag like so :
+        let selectedIndex = IndexPath(row: sender.tag, section: 0)
+        // And finally do whatever you need using this index :
+        tableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
+        // Now if you need to access the selected cell instead of just the index path, you could easily do so by using the table view's cellForRow method
+        let selectedCell = tableView.cellForRow(at: selectedIndex) as! ContactTVCell
+        
+        selectedCell.backgroundColor = .green
+    }
     
     // MARK: - Navigation
 

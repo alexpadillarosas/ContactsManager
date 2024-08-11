@@ -22,7 +22,8 @@ class Repository {
 
         var contacts = [Contact]()
         _ = db.collection(name)
-            .order(by: "favourite", descending: true)
+            .order(by: "firstname")
+            .order(by: "lastname", descending: false)
             .addSnapshotListener { snapshot, error in  //we add a listener, so we can listen for updates made to our db, it returns a current snapshot with the found data, and an error if there is any
                 if let documents = snapshot?.documents { //we unwrap the documents inside of the snapshot
                     

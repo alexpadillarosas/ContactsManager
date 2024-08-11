@@ -17,6 +17,7 @@
 		FA35EEAB2BEF49E10031B74F /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35EEAA2BEF49E10031B74F /* Repository.swift */; };
 		FA35EEAF2BEF4B630031B74F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FA35EEAE2BEF4B630031B74F /* FirebaseFirestore */; };
 		FA35EEB12BEF51630031B74F /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA35EEB02BEF51630031B74F /* FirebaseFirestoreSwift */; };
+		FA7F5D682C68A0B100B76BE1 /* ContactsNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F5D672C68A0B100B76BE1 /* ContactsNC.swift */; };
 		FAA8C0C12C53E3CA0009AE91 /* ProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8C0C02C53E3CA0009AE91 /* ProfileTVC.swift */; };
 		FABABB8F2BE1101600F693EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABABB8E2BE1101600F693EA /* AppDelegate.swift */; };
 		FABABB912BE1101600F693EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABABB902BE1101600F693EA /* SceneDelegate.swift */; };
@@ -38,6 +39,7 @@
 		FA35EEA42BEF344F0031B74F /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		FA35EEA82BEF428B0031B74F /* ShowContactsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactsTVC.swift; sourceTree = "<group>"; };
 		FA35EEAA2BEF49E10031B74F /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		FA7F5D672C68A0B100B76BE1 /* ContactsNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsNC.swift; sourceTree = "<group>"; };
 		FAA8C0C02C53E3CA0009AE91 /* ProfileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTVC.swift; sourceTree = "<group>"; };
 		FABABB8B2BE1101600F693EA /* ContactsManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABABB8E2BE1101600F693EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 		FA35EEA32BEF341E0031B74F /* Show */ = {
 			isa = PBXGroup;
 			children = (
+				FA7F5D672C68A0B100B76BE1 /* ContactsNC.swift */,
 				FA35EEA82BEF428B0031B74F /* ShowContactsTVC.swift */,
 				FAE7FA162BFC35FA0013E8E3 /* ContactTVCell.swift */,
 			);
@@ -279,6 +282,7 @@
 			files = (
 				FA35EEA52BEF344F0031B74F /* Contact.swift in Sources */,
 				FABF9FB72BE45587001920DA /* SignUpVC.swift in Sources */,
+				FA7F5D682C68A0B100B76BE1 /* ContactsNC.swift in Sources */,
 				FA35EEAB2BEF49E10031B74F /* Repository.swift in Sources */,
 				FABABB8F2BE1101600F693EA /* AppDelegate.swift in Sources */,
 				FABF9FBB2BE51109001920DA /* Extensions.swift in Sources */,

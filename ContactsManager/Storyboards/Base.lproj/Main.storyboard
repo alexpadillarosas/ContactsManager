@@ -104,8 +104,8 @@
                                                     <segue destination="Bsq-2H-sMW" kind="show" id="4Xc-u6-Prj"/>
                                                 </connections>
                                             </button>
-                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="WS8-5k-W8R">
-                                                <rect key="frame" x="204" y="319.66666666666669" width="20" height="20"/>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="WS8-5k-W8R">
+                                                <rect key="frame" x="195.66666666666666" y="311" width="37" height="37"/>
                                                 <color key="color" systemColor="linkColor"/>
                                             </activityIndicatorView>
                                         </subviews>
@@ -328,10 +328,10 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-20" translatesAutoresizingMaskIntoConstraints="NO" id="ad0-fk-gzr">
-                                            <rect key="frame" x="100" y="11" width="266.33333333333331" height="71"/>
+                                            <rect key="frame" x="100" y="11" width="94.333333333333314" height="71"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLW-yW-jc2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="266.33333333333331" height="45.666666666666664"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="94.333333333333329" height="45.666666666666664"/>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Full Name">
                                                             <attributes>
@@ -343,38 +343,48 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Bc-sI-bsN">
-                                                    <rect key="frame" x="0.0" y="25.666666666666661" width="266.33333333333331" height="45.333333333333343"/>
+                                                    <rect key="frame" x="0.0" y="25.666666666666661" width="94.333333333333329" height="45.333333333333343"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgf-Dq-DKO">
-                                            <rect key="frame" x="374.33333333333331" y="11" width="16" height="16"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="pgf-Dq-DKO" secondAttribute="height" multiplier="16:16" id="2b0-pZ-rFw"/>
-                                                <constraint firstAttribute="width" constant="16" id="cXe-DT-8RD"/>
-                                            </constraints>
-                                            <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain">
-                                                <imageReference key="image" image="star.fill" catalog="system" symbolScale="small"/>
-                                            </buttonConfiguration>
-                                        </button>
+                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WBa-C2-cQe">
+                                            <rect key="frame" x="270" y="29" width="101.66666666666669" height="34.333333333333343"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72d-jp-QHD">
+                                                    <rect key="frame" x="0.0" y="0.0" width="49.666666666666664" height="34.333333333333336"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain">
+                                                        <imageReference key="image" image="phone.circle" catalog="system" symbolScale="large"/>
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
+                                                    </buttonConfiguration>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgf-Dq-DKO">
+                                                    <rect key="frame" x="49.666666666666686" y="0.0" width="52" height="34.333333333333336"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain">
+                                                        <imageReference key="image" image="star.fill" catalog="system" symbolScale="large"/>
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
+                                                    </buttonConfiguration>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="ad0-fk-gzr" firstAttribute="top" secondItem="LnN-2V-wgd" secondAttribute="top" constant="11" id="4Oq-DX-32B"/>
                                         <constraint firstItem="ttO-Zw-os2" firstAttribute="leading" secondItem="LnN-2V-wgd" secondAttribute="leading" constant="16" id="IuR-nk-H6H"/>
                                         <constraint firstItem="ad0-fk-gzr" firstAttribute="leading" secondItem="ttO-Zw-os2" secondAttribute="trailing" constant="8" symbolic="YES" id="S8l-2p-btX"/>
                                         <constraint firstAttribute="bottom" secondItem="ttO-Zw-os2" secondAttribute="bottom" constant="9" id="VvE-oP-dGA"/>
-                                        <constraint firstItem="pgf-Dq-DKO" firstAttribute="top" secondItem="LnN-2V-wgd" secondAttribute="top" constant="11" id="VwA-e2-0VR"/>
-                                        <constraint firstAttribute="trailing" secondItem="pgf-Dq-DKO" secondAttribute="trailing" constant="7.5" id="cJ3-9H-9NV"/>
+                                        <constraint firstItem="WBa-C2-cQe" firstAttribute="centerY" secondItem="LnN-2V-wgd" secondAttribute="centerY" id="XYv-qw-Q81"/>
                                         <constraint firstAttribute="bottom" secondItem="ad0-fk-gzr" secondAttribute="bottom" constant="11" id="sXo-uD-TpJ"/>
                                         <constraint firstItem="ttO-Zw-os2" firstAttribute="top" secondItem="LnN-2V-wgd" secondAttribute="top" constant="8" id="tWc-A1-FKs"/>
-                                        <constraint firstItem="pgf-Dq-DKO" firstAttribute="leading" secondItem="ad0-fk-gzr" secondAttribute="trailing" constant="8" symbolic="YES" id="yVW-u6-S5z"/>
+                                        <constraint firstAttribute="trailing" secondItem="WBa-C2-cQe" secondAttribute="trailing" constant="26" id="uaF-YF-jj6"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="callButton" destination="72d-jp-QHD" id="nMk-fS-5xb"/>
                                     <outlet property="favouriteButton" destination="pgf-Dq-DKO" id="bBM-bv-Xpn"/>
                                     <outlet property="fullNameLabel" destination="zLW-yW-jc2" id="I8e-Ph-pX8"/>
                                     <outlet property="phoneLabel" destination="8Bc-sI-bsN" id="qa2-Of-wuw"/>
@@ -397,13 +407,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="MyNav" destination="PHk-BP-Vm7" id="0Uf-4p-IYD"/>
                         <outlet property="searchUiSearchBar" destination="Bke-K6-cOU" id="6M6-tn-TER"/>
                         <outlet property="showContactsTVC" destination="Z7Y-70-9SK" id="JvK-DK-gWD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ql1-Xx-lOu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5123" y="360"/>
+            <point key="canvasLocation" x="5122.4299065420555" y="359.61123110151192"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="zi0-4A-XBi">
@@ -426,8 +437,10 @@
         <!--Contacts-->
         <scene sceneID="OJY-DK-4kQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1yl-lW-jeq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Contacts" image="person.2" catalog="system" selectedImage="person.2" id="hOR-G6-ylL"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1yl-lW-jeq" customClass="ContactsNC" customModule="ContactsManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Contacts" image="person.2" catalog="system" id="hOR-G6-ylL">
+                        <imageReference key="selectedImage" image="person.2" catalog="system" symbolScale="default"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PV5-dB-ZWw">
                         <rect key="frame" x="0.0" y="47" width="428" height="44"/>
@@ -438,6 +451,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
+                        <outlet property="contactsTabBarItem" destination="hOR-G6-ylL" id="gFj-Xc-15t"/>
                         <segue destination="8wP-9Y-pzd" kind="relationship" relationship="rootViewController" id="7zw-fj-0pj"/>
                     </connections>
                 </navigationController>
@@ -1258,6 +1272,7 @@
         <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="person.2" catalog="system" width="128" height="87"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="phone.circle" catalog="system" width="128" height="123"/>
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>
         <image name="square.and.arrow.down.fill" catalog="system" width="121" height="128"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>

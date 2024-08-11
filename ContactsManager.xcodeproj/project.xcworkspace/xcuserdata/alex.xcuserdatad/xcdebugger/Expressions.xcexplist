@@ -43,6 +43,9 @@
             <PersistentString
                value = "self.navigationController?.topViewController">
             </PersistentString>
+            <PersistentString
+               value = "self.parent">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState

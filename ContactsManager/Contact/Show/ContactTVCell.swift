@@ -17,6 +17,6 @@ class ContactTVCell: UITableViewCell {
     
     @IBOutlet weak var favouriteButton: UIButton!
 
-    
+    @IBOutlet weak var callButton: UIButton!
     
 }
