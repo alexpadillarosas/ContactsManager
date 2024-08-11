@@ -20,6 +20,9 @@ class Repository {
     //the closure receives an contact's array and returns nothing
     func findUserContacts( fromCollection name : String, completion : @escaping ([Contact]) -> ()){
 
+        //here when ordering by 2 different fields, firestore will force you to create an index ( which it does makes sense )
+        //check the log and there will be a url you can click, firestore will suggest you which type of index to create, after it
+        //you will be able to run the app again. Check the index status is enabled, else you will have to wait.
         var contacts = [Contact]()
         _ = db.collection(name)
             .order(by: "firstname")
