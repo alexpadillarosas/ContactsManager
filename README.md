@@ -44,8 +44,8 @@ For this project to work, go to https://www.firebase.com
 <kbd><img src="https://github.com/user-attachments/assets/9b6a71e5-26b7-465e-837a-c32cfce9e8f5" /></kbd>
  * Subcollection: Contacts
 <kbd><img src="https://github.com/user-attachments/assets/1d7a6966-a7c5-420c-ab5a-81148a20b57a" /></kbd>
-
-
+ * Index: create the following index, it will be required as we are going to sort the contacts by firstname and lastname
+<kbd><img src="https://github.com/user-attachments/assets/dc133da8-d444-4823-988e-ed639fd07118" /></kbd>
 
 
 ## Disclaimer:
