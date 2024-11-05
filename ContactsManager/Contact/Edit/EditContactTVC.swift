@@ -51,6 +51,30 @@ class EditContactTVC: UITableViewController {
         
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if firstnameTextField.text.isBlank {
+            showAlertMessage(title: "Validation", message: "Firstname is mandatory")
+            return false
+        }
+
+        if lastnameTextField.text.isBlank {
+            showAlertMessage(title: "Validation", message: "Lastname is mandatory")
+            return false
+        }
+
+        if emailTextField.text.isBlank {
+            showAlertMessage(title: "Validation", message: "Email is mandatory")
+            return false
+        }
+        
+        if phoneTextField.text.isBlank {
+            showAlertMessage(title: "Validation", message: "Phone is mandatory")
+            return false
+        }
+        
+        return true
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

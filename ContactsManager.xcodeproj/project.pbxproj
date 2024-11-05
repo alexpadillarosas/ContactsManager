@@ -11,7 +11,6 @@
 		FA298A082C4B821800339C7D /* ViewContactTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA298A072C4B821800339C7D /* ViewContactTVC.swift */; };
 		FA298A0B2C4B971800339C7D /* EditContactTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA298A0A2C4B971800339C7D /* EditContactTVC.swift */; };
 		FA35EEA02BEA14460031B74F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FA35EE9F2BEA14460031B74F /* FirebaseAuth */; };
-		FA35EEA22BEC8C910031B74F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA35EEA12BEC8C910031B74F /* GoogleService-Info.plist */; };
 		FA35EEA52BEF344F0031B74F /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35EEA42BEF344F0031B74F /* Contact.swift */; };
 		FA35EEA92BEF428B0031B74F /* ShowContactsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35EEA82BEF428B0031B74F /* ShowContactsTVC.swift */; };
 		FA35EEAB2BEF49E10031B74F /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35EEAA2BEF49E10031B74F /* Repository.swift */; };
@@ -28,6 +27,7 @@
 		FABF9FB72BE45587001920DA /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABF9FB62BE45587001920DA /* SignUpVC.swift */; };
 		FABF9FBB2BE51109001920DA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABF9FBA2BE51109001920DA /* Extensions.swift */; };
 		FAE7FA172BFC35FA0013E8E3 /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7FA162BFC35FA0013E8E3 /* ContactTVCell.swift */; };
+		FAF67C612CDA082400133D4F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAF67C602CDA082400133D4F /* GoogleService-Info.plist */; };
 		FAFC235D2C4F952C00A89A67 /* AddContactTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFC235C2C4F952C00A89A67 /* AddContactTVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +35,6 @@
 		FA0A3B5F2BF8A86200374CD2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FA298A072C4B821800339C7D /* ViewContactTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContactTVC.swift; sourceTree = "<group>"; };
 		FA298A0A2C4B971800339C7D /* EditContactTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactTVC.swift; sourceTree = "<group>"; };
-		FA35EEA12BEC8C910031B74F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA35EEA42BEF344F0031B74F /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		FA35EEA82BEF428B0031B74F /* ShowContactsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactsTVC.swift; sourceTree = "<group>"; };
 		FA35EEAA2BEF49E10031B74F /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
@@ -52,6 +51,7 @@
 		FABF9FB62BE45587001920DA /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		FABF9FBA2BE51109001920DA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FAE7FA162BFC35FA0013E8E3 /* ContactTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTVCell.swift; sourceTree = "<group>"; };
+		FAF67C602CDA082400133D4F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FAFC235C2C4F952C00A89A67 /* AddContactTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,12 +175,12 @@
 		FABABB8D2BE1101600F693EA /* ContactsManager */ = {
 			isa = PBXGroup;
 			children = (
+				FAF67C602CDA082400133D4F /* GoogleService-Info.plist */,
 				FAA8C0BF2C53E3AF0009AE91 /* Profile */,
 				FA8A83B22C53BECA0055A1BD /* Database */,
 				FA8A83B12C53BE840055A1BD /* Utils */,
 				FA8A83B02C53BE650055A1BD /* Storyboards */,
 				FA298A0C2C4DFD4600339C7D /* Contact */,
-				FA35EEA12BEC8C910031B74F /* GoogleService-Info.plist */,
 				FABABB8E2BE1101600F693EA /* AppDelegate.swift */,
 				FABABB902BE1101600F693EA /* SceneDelegate.swift */,
 				FABABBA22BE1111B00F693EA /* Login */,
@@ -267,7 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FABABB982BE1101700F693EA /* Assets.xcassets in Resources */,
-				FA35EEA22BEC8C910031B74F /* GoogleService-Info.plist in Resources */,
+				FAF67C612CDA082400133D4F /* GoogleService-Info.plist in Resources */,
 				FABABB9B2BE1101700F693EA /* Base in Resources */,
 				FABABB962BE1101600F693EA /* Base in Resources */,
 			);

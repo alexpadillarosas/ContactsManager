@@ -13,7 +13,7 @@ class AddContactTVC: UITableViewController {
 
     @IBOutlet weak var firstnameTextField: UITextField!
     @IBOutlet weak var lastnameTextField: UITextField!
-    @IBOutlet weak var emailTextFIeld: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var favouriteSwitch: UISwitch!
     @IBOutlet weak var notesTextField: UITextField!
@@ -32,6 +32,55 @@ class AddContactTVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        var totalInvalidComponents : Int = 0
+        if firstnameTextField.text.isBlank {
+//            Move these 2 to the extension class
+//            firstnameTextField.layer.borderColor = UIColor.red.cgColor
+//            firstnameTextField.layer.borderWidth = 0.5
+            firstnameTextField.showInvalidBorder()
+            totalInvalidComponents  = totalInvalidComponents + 1
+
+        }else{
+//            Move these 2 to the extension class
+//            firstnameTextField.layer.borderColor = UIColor.lightGray.cgColor
+//            firstnameTextField.layer.borderWidth = 0.0
+            firstnameTextField.removeInvalidBorder()
+
+        }
+
+        if lastnameTextField.text.isBlank {
+            lastnameTextField.showInvalidBorder()
+            totalInvalidComponents  = totalInvalidComponents + 1
+
+        }else{
+            lastnameTextField.removeInvalidBorder()
+        }
+
+        
+        if emailTextField.text.isBlank {
+            emailTextField.showInvalidBorder()
+            totalInvalidComponents  = totalInvalidComponents + 1
+        }else{
+            emailTextField.removeInvalidBorder()
+        }
+        
+        if phoneTextField.text.isBlank {
+            phoneTextField.showInvalidBorder()
+            totalInvalidComponents  = totalInvalidComponents + 1
+        }else{
+            phoneTextField.removeInvalidBorder()
+        }
+        
+        
+        if totalInvalidComponents > 0 {
+            return false
+        }else{
+            return true
+        }
+
+        
+    }
 
     // MARK: - Navigation
 
@@ -45,7 +94,7 @@ class AddContactTVC: UITableViewController {
             //create an contact object
             let contact = Contact(firstname: firstnameTextField.text!,
                                   lastname: lastnameTextField.text!,
-                                  email: emailTextFIeld.text!,
+                                  email: emailTextField.text!,
                                   phone: phoneTextField.text!,
                                   photo: photoTextField.text!,
                                   note: notesTextField.text!,

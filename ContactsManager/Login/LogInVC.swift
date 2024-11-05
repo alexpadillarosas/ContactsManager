@@ -19,6 +19,9 @@ class LogInVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        emailTextField.setLeftView(image: UIImage(systemName: "envelope")!)
+        passwordTextField.setLeftView(image: UIImage(systemName: "lock")!)
+
         
     }
     

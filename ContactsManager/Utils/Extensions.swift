@@ -90,3 +90,72 @@ extension UIViewController {
 }
 
 
+extension UITextField {
+    func showInvalidBorder() {
+        self.layer.borderColor = UIColor.red.cgColor
+        self.layer.borderWidth = 0.5
+    }
+    
+    func removeInvalidBorder(){
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.borderWidth = 0.0
+    }
+    
+    func setLeftView(image: UIImage) {
+        
+        let iconView = UIImageView(frame: CGRect(x: 10, y: 13, width: 25, height: 20)) // set your Own size
+        iconView.image = image
+        let iconContainerView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 35, height: 45))
+        iconContainerView.addSubview(iconView)
+        leftView = iconContainerView
+        leftViewMode = .always
+//        self.tintColor = .lightGray
+         
+        
+        
+    }
+    
+    enum Direction {
+        case Left
+        case Right
+    }
+
+    // add image to textfield
+    // Example calling it:
+    // emailTextField.withImage(direction: .Left, image: UIImage(systemName: "envelope")!, colorSeparator: UIColor.lightGray , colorBorder: UIColor.black)
+    func withImage(direction: Direction, image: UIImage, colorSeparator: UIColor, colorBorder: UIColor){
+        let mainView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 35))
+        mainView.layer.cornerRadius = 5
+
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 35))
+        view.backgroundColor = .white
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 5
+        view.layer.borderWidth = CGFloat(0.5)
+        view.layer.borderColor = colorBorder.cgColor
+        mainView.addSubview(view)
+
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        imageView.frame = CGRect(x: 12.0, y: 6.0, width: 24.0, height: 24.0)
+        view.addSubview(imageView)
+
+        let seperatorView = UIView()
+        seperatorView.backgroundColor = colorSeparator
+        mainView.addSubview(seperatorView)
+
+        if(Direction.Left == direction){ // image left
+            seperatorView.frame = CGRect(x: 45, y: 0, width: 5, height: 35)
+            self.leftViewMode = .always
+            self.leftView = mainView
+        } else { // image right
+            seperatorView.frame = CGRect(x: 0, y: 0, width: 5, height: 35)
+            self.rightViewMode = .always
+            self.rightView = mainView
+        }
+
+        self.layer.borderColor = colorBorder.cgColor
+        self.layer.borderWidth = CGFloat(0.5)
+        self.layer.cornerRadius = 5
+    }
+}
