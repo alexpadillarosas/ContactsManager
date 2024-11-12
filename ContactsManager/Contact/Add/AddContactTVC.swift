@@ -19,7 +19,8 @@ class AddContactTVC: UITableViewController {
     @IBOutlet weak var notesTextField: UITextField!
     @IBOutlet weak var photoTextField: UITextField!
     
-    
+    /* example for validation: https://www.google.com/search?q=ios+uikit+form+validation&rlz=1C5CHFA_enAU916AU916&oq=ios+uikit+form+validation+&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIKCAEQABiABBiiBDIKCAIQABiABBiiBDIKCAMQABiABBiiBDIKCAQQABiABBiiBNIBCTExNzQ4ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:f54a8c92,vid:5Rn6JJAuyK0,st:0
+    */
     
     
     override func viewDidLoad() {

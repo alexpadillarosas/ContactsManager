@@ -55,26 +55,49 @@ class ProfileTVC: UITableViewController {
         }
         
     }
+    
+    func isDataValid() -> Bool {
+        var totalInvalidComponents : Int = 0
+        if firstnameTextField.text.isBlank {
+            firstnameTextField.showInvalidBorder()
+            totalInvalidComponents = totalInvalidComponents + 1
+        }else{
+            firstnameTextField.removeInvalidBorder()
+        }
+        
+        if lastnameTextField.text.isBlank {
+            lastnameTextField.showInvalidBorder()
+            totalInvalidComponents = totalInvalidComponents + 1
+        }else{
+            lastnameTextField.removeInvalidBorder()
+        }
+        
+        if totalInvalidComponents > 0 {
+            showAlertMessage(title: "Validation", message: "Please input the required information")
+            return false
+        }else{
+            return true
+        }
+    }
 
     /**
      Method used to save user's information
      */
     @IBAction func saveButtonDidPress(_ sender: Any) {
         
-        if !firstnameTextField.text.isBlank && !lastnameTextField.text.isBlank {
+        if isDataValid() {
             
+            let user = User(id: user.id,
+                            firstname: firstnameTextField.text!,
+                            lastname: lastnameTextField.text!,
+                            email: emailLabel.text!,
+                            phone: phoneTextField.text!,
+                            photo: "",
+                            dob: Timestamp(date: dobDatePicker.date)
+            )
+            
+            _ = service.updateUser(withData: user)
         }
-        
-        let user = User(id: user.id,
-                        firstname: firstnameTextField.text!,
-                        lastname: lastnameTextField.text!,
-                        email: emailLabel.text!,
-                        phone: phoneTextField.text!,
-                        photo: "",
-                        dob: Timestamp(date: dobDatePicker.date)
-        )
-        
-       _ = service.updateUser(withData: user)
         
     }
     

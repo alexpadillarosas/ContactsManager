@@ -427,7 +427,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="1yl-lW-jeq" kind="relationship" relationship="viewControllers" id="TJI-Qg-M8W"/>
-                        <segue destination="4Ut-Gj-INY" kind="relationship" relationship="viewControllers" id="dOL-jB-fez"/>
+                        <segue destination="zaf-1M-tuW" kind="relationship" relationship="viewControllers" id="dOL-jB-fez"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6cm-gU-IAi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -615,7 +615,6 @@
                             <outlet property="delegate" destination="4Ut-Gj-INY" id="nE2-4F-Gqh"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Profile" image="gearshape" catalog="system" selectedImage="gearshape" id="fuL-Mq-50g"/>
                     <navigationItem key="navigationItem" title="Profile" id="jzD-yQ-TIf">
                         <rightBarButtonItems>
                             <barButtonItem title="Logout" image="rectangle.portrait.and.arrow.right" catalog="system" id="aIL-4K-n6r">
@@ -642,7 +641,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iMb-Nd-5au" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4230" y="1410"/>
+            <point key="canvasLocation" x="5126.5116279069771" y="1355.7939914163092"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hAs-QQ-08F">
@@ -867,7 +866,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Te3-7v-Eft" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6086" y="840"/>
+            <point key="canvasLocation" x="6983.7209302325582" y="839.48497854077254"/>
         </scene>
         <!--Add-->
         <scene sceneID="N3A-dR-Zby">
@@ -1264,7 +1263,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3z-as-zOr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="5RC-Kd-qeQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6891" y="840"/>
+            <point key="canvasLocation" x="7788.8372093023254" y="839.48497854077254"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="eqC-6S-oI7">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zaf-1M-tuW" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Profile" image="gearshape" catalog="system" selectedImage="gearshape" id="fuL-Mq-50g"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WJB-o4-dhE">
+                        <rect key="frame" x="0.0" y="59" width="430" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="4Ut-Gj-INY" kind="relationship" relationship="rootViewController" id="HsH-g5-VKr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pld-gZ-yWO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4227.9069767441861" y="1355.7939914163092"/>
         </scene>
     </scenes>
     <resources>
@@ -1277,13 +1295,13 @@
         <image name="square.and.arrow.down.fill" catalog="system" width="121" height="128"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
