@@ -11,10 +11,12 @@
   * Firebase Authentication
   * Cloud Firestore
 
+<!--
 
 ### Video
 
 https://drive.google.com/file/d/1qf47JB2NC6a5H3NRENiM9cvKCVf2jw-n/view?usp=drive_link
+-->
 
 ### Screenshots
 
