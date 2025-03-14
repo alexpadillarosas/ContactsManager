@@ -1245,7 +1245,7 @@
                     <navigationItem key="navigationItem" title="Edit" id="u6L-DB-kB1">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="2It-vK-FCJ">
                             <connections>
-                                <segue destination="5RC-Kd-qeQ" kind="unwind" unwindAction="unwindToShowTableVC:" id="WLU-MA-6kB"/>
+                                <segue destination="5RC-Kd-qeQ" kind="unwind" identifier="saveEditGoToShowContactsTVC" unwindAction="unwindToShowTableVC:" id="WLU-MA-6kB"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

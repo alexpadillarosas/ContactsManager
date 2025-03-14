@@ -52,25 +52,38 @@ class EditContactTVC: UITableViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if firstnameTextField.text.isBlank {
-            showAlertMessage(title: "Validation", message: "Firstname is mandatory")
-            return false
-        }
+        /**as this method gets called for all segues, if you have more than 1 segue in this view controller, better differentiate them giving the segue an identifier, so you can use:
+             if identifier == "myIdentifierName" {
+             
+             }
+                or
+            Switch statement
+        */
+                
+            switch identifier {
+            case "saveEditGoToShowContactsTVC":
+                guard !firstnameTextField.text.isBlank else {
+                    showAlertMessage(title: "Validation", message: "Firstname is mandatory")
+                    return false
+                }
+                
+                guard !lastnameTextField.text.isBlank else{
+                    showAlertMessage(title: "Validation", message: "Lastname is mandatory")
+                    return false
+                }
 
-        if lastnameTextField.text.isBlank {
-            showAlertMessage(title: "Validation", message: "Lastname is mandatory")
-            return false
-        }
-
-        if emailTextField.text.isBlank {
-            showAlertMessage(title: "Validation", message: "Email is mandatory")
-            return false
-        }
-        
-        if phoneTextField.text.isBlank {
-            showAlertMessage(title: "Validation", message: "Phone is mandatory")
-            return false
-        }
+                guard !emailTextField.text.isBlank else{
+                    showAlertMessage(title: "Validation", message: "Email is mandatory")
+                    return false
+                }
+                
+                guard !phoneTextField.text.isBlank else{
+                    showAlertMessage(title: "Validation", message: "Phone is mandatory")
+                    return false
+                }
+            default:
+                print("segue: \(identifier) does not perform any validations")
+            }
         
         return true
     }

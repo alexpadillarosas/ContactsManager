@@ -52,11 +52,13 @@ extension UIViewController {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
-        let oncompleteAction: UIAlertAction = UIAlertAction(title: "OK", style: .default) { action in
+        let okButtonAction: UIAlertAction
+        
+        okButtonAction = UIAlertAction(title: "OK", style: .default) { action in
             onComplete?()
         }
         
-        alert.addAction(oncompleteAction)
+        alert.addAction(okButtonAction)
         
         present(alert, animated: true, completion: nil)
     }
