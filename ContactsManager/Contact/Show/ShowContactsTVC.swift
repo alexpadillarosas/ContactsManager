@@ -35,7 +35,7 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
     //This is a reference to the UITableViewController in the storyboard, so we can programmatically manipulate it
     @IBOutlet var showContactsTVC: UITableView!
     
-    let service = Repository() //An instance of our Service (class that works with firebase/firestore)
+    let service = Repository.sharedRepository //A singleton instance of our Service (class that works with firebase/firestore)
     var contacts = [Contact]() //An array holding all contacts from our database
        
     override func viewDidLoad() {

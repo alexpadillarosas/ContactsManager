@@ -13,7 +13,7 @@ private let reuseIdentifier = "reuseIdentifier2"
 class ShowContactsCVC: UICollectionViewController {
 
     @IBOutlet var showContactsCollectionView: UICollectionView!
-    let service = Repository() //An instance of our Service (class that works with firebase/firestore)
+    let service = Repository.sharedRepository //A singleton instance of our Service (class that works with firebase/firestore)
     var contacts = [Contact]() //An array holding all contacts from our database
     var userAuthId : String!
     

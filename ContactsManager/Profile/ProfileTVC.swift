@@ -20,7 +20,7 @@ class ProfileTVC: UITableViewController {
     
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
     
-    let service = Repository()
+    let service = Repository.sharedRepository
     var user : User!
     
     override func viewDidLoad() {

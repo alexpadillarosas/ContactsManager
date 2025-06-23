@@ -107,7 +107,7 @@ class EditContactTVC: UITableViewController {
             contact.phone = phoneTextField.text!
             contact.note = notesTextField.text!
             
-            let service = Repository()
+            let service = Repository.sharedRepository
             //Get the logged user Id
             let userAuthId = Auth.auth().currentUser?.uid
             //Update the contact

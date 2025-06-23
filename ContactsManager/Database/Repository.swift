@@ -9,11 +9,12 @@ import Foundation
 import FirebaseFirestore
 
 class Repository {
-    var db = Firestore.firestore()
-    
+    static let sharedRepository = Repository()
+    let db = Firestore.firestore()
+
     //        whereField("country", in: ["USA", "Japan"])
     //        _ = db.collection(name).whereField("userId", isEqualTo: userId)
-    
+
     //This is a trailing closure: A function whose last parameter is a closure
     //the closure receives an contact's array and returns nothing
     func findUserContacts( fromCollection name : String, completion : @escaping ([Contact]) -> ()){
