@@ -9,4 +9,7 @@ import UIKit
 
 class ContactCVCell: UICollectionViewCell {
     
+    @IBOutlet weak var contactImageView: UIImageView!
+    
+    
 }

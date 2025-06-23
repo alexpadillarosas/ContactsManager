@@ -32,11 +32,10 @@ class ProfileTVC: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         //Get the user id from the current logged in user.
-        let userAuthId = Auth.auth().currentUser?.uid
-
+        let userId = Auth.auth().currentUser?.email
         self.saveBarButtonItem.isEnabled = false
         
-        service.findUserInfo(for: userAuthId!) { returnedUser in
+        service.findUserInfo(for: userId!) { returnedUser in
             //we assign the returned user from the datase into a class property, so we can reuse it everywhere in this class.
             self.user = returnedUser
             

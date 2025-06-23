@@ -11,8 +11,6 @@ import FirebaseFirestore
 class Repository {
     var db = Firestore.firestore()
     
-    
-    
     //        whereField("country", in: ["USA", "Japan"])
     //        _ = db.collection(name).whereField("userId", isEqualTo: userId)
     
@@ -56,6 +54,7 @@ class Repository {
             "email": user.email as String,
             "phone": user.phone as String,
             "photo": user.photo as String,
+            "dob": user.registered ?? FieldValue.serverTimestamp(),
             "registered": user.registered ?? FieldValue.serverTimestamp() //if user.registered is nil then assignt the server timestamp
 //            "contacts": user.contacts
         ]
@@ -80,14 +79,14 @@ class Repository {
                 print("Error getting the user information \(error!.localizedDescription)")
                 return
             }
-            //unwrap the docuement, and also check that exists
+            //unwrap the document, and also check that exists
             if let document = document, document.exists {
                 //get the data in a dictionary
                 let data = document.data()
                 //unwrap the dictionary
                 if let data = data {
 //                    print(data)
-                    user = User(id: document.documentID, dictionary: data)
+                    user = User(id: userId, dictionary: data)
                     //call the closure passing a the user object
                     completion(user)
                 }
@@ -109,7 +108,7 @@ class Repository {
             "dob": user.dob as Timestamp
         ]
         
-        db.collection("users").document(user.id).updateData(dictionary){ error in
+        db.collection("users").document(user.email).updateData(dictionary){ error in
             if let error = error {
                 print("Error updating user information: \(error)")
                 result = false

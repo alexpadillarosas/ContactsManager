@@ -6,21 +6,43 @@
 //
 
 import UIKit
+import FirebaseAuth
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "reuseIdentifier2"
 
-class ShowContactsCollectionViewController: UICollectionViewController {
+class ShowContactsCVC: UICollectionViewController {
 
+    @IBOutlet var showContactsCollectionView: UICollectionView!
+    let service = Repository() //An instance of our Service (class that works with firebase/firestore)
+    var contacts = [Contact]() //An array holding all contacts from our database
+    var userAuthId : String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        // self.clearsSelectionOnVieminamiwWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+//        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        
+        userAuthId = Auth.auth().currentUser?.uid
+        print("User id in Show Contacts: \(userAuthId ?? "NIL")")
+        //to access a subcollections we can also create references by specifying the path to a document or collection as a string, with path components separated by a forward slash (/)
+        
+        //We call the trailing closure
+        
+        service.findUserContacts(fromCollection: "users/" + userAuthId! + "/contacts"){  (returnedCollection) in
+            self.contacts = returnedCollection
+            self.showContactsCollectionView.reloadData()
+            //We update the badge on the contacts item to inform the user the number of contacts registered in the app
+
+        }
+
+        print("total \(contacts.count)")
+        
     }
 
     /*
@@ -37,19 +59,27 @@ class ShowContactsCollectionViewController: UICollectionViewController {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return contacts.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ContactCVCell
     
+        let contact = contacts[indexPath.row]
         // Configure the cell
+        if !contact.photo.isEmpty && UIImage(named: contact.photo) != nil {
+            cell.contactImageView.image = UIImage(named: contact.photo)
+            
+        }else{//This else is needed to reset the default image, else gets cached it and display the wrong one whenever the image cannot be found in the project
+            cell.contactImageView.image = UIImage(systemName: "person.circle.fill")
+        }
     
         return cell
     }

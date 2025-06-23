@@ -11,6 +11,8 @@
 		FA2908762DB0826400ECB0B1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FA2908752DB0826400ECB0B1 /* FirebaseAuth */; };
 		FA2908782DB0826400ECB0B1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FA2908772DB0826400ECB0B1 /* FirebaseFirestore */; };
 		FA29087A2DB0826400ECB0B1 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FA2908792DB0826400ECB0B1 /* FirebaseStorage */; };
+		FA2908E02DB0949500ECB0B1 /* ShowContactsCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2908DF2DB0949500ECB0B1 /* ShowContactsCVC.swift */; };
+		FA2908E22DB094A000ECB0B1 /* ContactCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2908E12DB094A000ECB0B1 /* ContactCVCell.swift */; };
 		FA298A082C4B821800339C7D /* ViewContactTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA298A072C4B821800339C7D /* ViewContactTVC.swift */; };
 		FA298A0B2C4B971800339C7D /* EditContactTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA298A0A2C4B971800339C7D /* EditContactTVC.swift */; };
 		FA35EEA52BEF344F0031B74F /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35EEA42BEF344F0031B74F /* Contact.swift */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		FA0A3B5F2BF8A86200374CD2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FA2908DF2DB0949500ECB0B1 /* ShowContactsCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactsCVC.swift; sourceTree = "<group>"; };
+		FA2908E12DB094A000ECB0B1 /* ContactCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCVCell.swift; sourceTree = "<group>"; };
 		FA298A072C4B821800339C7D /* ViewContactTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContactTVC.swift; sourceTree = "<group>"; };
 		FA298A0A2C4B971800339C7D /* EditContactTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactTVC.swift; sourceTree = "<group>"; };
 		FA35EEA42BEF344F0031B74F /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 		FA35EEA32BEF341E0031B74F /* Show */ = {
 			isa = PBXGroup;
 			children = (
+				FA2908DF2DB0949500ECB0B1 /* ShowContactsCVC.swift */,
+				FA2908E12DB094A000ECB0B1 /* ContactCVCell.swift */,
 				FA7F5D672C68A0B100B76BE1 /* ContactsNC.swift */,
 				FA35EEA82BEF428B0031B74F /* ShowContactsTVC.swift */,
 				FAE7FA162BFC35FA0013E8E3 /* ContactTVCell.swift */,
@@ -290,8 +296,10 @@
 				FA298A082C4B821800339C7D /* ViewContactTVC.swift in Sources */,
 				FABABB912BE1101600F693EA /* SceneDelegate.swift in Sources */,
 				FAE7FA172BFC35FA0013E8E3 /* ContactTVCell.swift in Sources */,
+				FA2908E22DB094A000ECB0B1 /* ContactCVCell.swift in Sources */,
 				FA35EEA92BEF428B0031B74F /* ShowContactsTVC.swift in Sources */,
 				FABF9FB52BE45577001920DA /* LogInVC.swift in Sources */,
+				FA2908E02DB0949500ECB0B1 /* ShowContactsCVC.swift in Sources */,
 				FAFC235D2C4F952C00A89A67 /* AddContactTVC.swift in Sources */,
 				FA298A0B2C4B971800339C7D /* EditContactTVC.swift in Sources */,
 				FA0A3B602BF8A86200374CD2 /* User.swift in Sources */,

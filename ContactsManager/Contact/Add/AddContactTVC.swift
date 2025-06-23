@@ -104,11 +104,11 @@ class AddContactTVC: UITableViewController {
                                   tags: [String]())
             
             //Get the user id from the current logged in user.
-            let userAuthId = Auth.auth().currentUser?.uid
+            let userId = Auth.auth().currentUser?.email
             //Create a instance of the repository class
             let service = Repository()
             //Add a contact to the logged in user
-            if service.addContact(for: userAuthId!, withData: contact){
+            if service.addContact(for: userId!, withData: contact){
                 print("contact saved")
             }
             

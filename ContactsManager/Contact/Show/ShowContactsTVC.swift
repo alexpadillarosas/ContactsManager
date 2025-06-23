@@ -29,7 +29,8 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
     
     
     var selectedContact : Contact!
-    var userAuthId : String!
+//    var userAuthId : String!
+    var userId: String!
     
     //This is a reference to the UITableViewController in the storyboard, so we can programmatically manipulate it
     @IBOutlet var showContactsTVC: UITableView!
@@ -73,13 +74,13 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
         contactsNC.contactsTabBarItem.badgeColor = .systemBlue
 
         
-        userAuthId = Auth.auth().currentUser?.uid
-        print("User id in Show Contacts: \(userAuthId ?? "NIL")")
+        userId = Auth.auth().currentUser?.email
+        print("User id in Show Contacts: \(userId ?? "NIL")")
         //to access a subcollections we can also create references by specifying the path to a document or collection as a string, with path components separated by a forward slash (/)
         
         //We call the trailing closure
         
-        service.findUserContacts(fromCollection: "users/" + userAuthId! + "/contacts"){  (returnedCollection) in
+        service.findUserContacts(fromCollection: "users/" + userId! + "/contacts"){  (returnedCollection) in
             self.contacts = returnedCollection
             self.showContactsTVC.reloadData()
             //We update the badge on the contacts item to inform the user the number of contacts registered in the app
@@ -133,7 +134,7 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
         
         //For the picture
         if !contact.photo.isEmpty && UIImage(named: contact.photo) != nil {
-            cell.photoImageView.image = UIImage(named: contact.photo)
+            cell.photoImageView .image = UIImage(named: contact.photo)
             
         }else{//This else is needed to reset the default image, else gets cached it and display the wrong one whenever the image cannot be found in the project
             cell.photoImageView.image = UIImage(systemName: "person.circle.fill")
@@ -180,7 +181,7 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
             deleteConfirmationMessage(title: "Delete",
                                       message: "Are you sure you want to permanently delete \(contact.firstname) \(contact.lastname) ?",
                 delete: {
-                    if self.service.deleteContact(withContactId: contact.id, for: self.userAuthId) {
+                    if self.service.deleteContact(withContactId: contact.id, for: self.userId) {
                         print("Contact Deleted")
                         //If we perform the delete action while searching, then we also need to delete index from that array
                         if self.searching {

@@ -57,7 +57,7 @@ class SignUpVC: UIViewController {
             let userAuthId = Auth.auth().currentUser?.uid
             print("signed up id \(userAuthId ?? "NIL")")
             //create an object user so we can save it in cloud firestore inside of the users collection
-            let user = User(id: userAuthId!,
+            let user = User(id: email,
                             firstname: "",
                             lastname: "",
                             email: email,
@@ -93,6 +93,7 @@ class SignUpVC: UIViewController {
          This function as seen in the source code, receives a result and an error
          */
         Auth.auth().createUser(withEmail: email, password: password){ authResult, error in
+//          guard there were no errors while creating the user.
             guard error == nil else {
                 self.showAlertMessage(title: "We could not create the account", message: "\(error!.localizedDescription)")
                 self.logInActivityIndicatorView.stopAnimating()
