@@ -10,12 +10,14 @@ import FirebaseAuth
 
 private let reuseIdentifier = "reuseIdentifier2"
 
+//For the UI please watch this video: https://www.youtube.com/watch?v=TQOhsyWUhwg
+
 class ShowContactsCVC: UICollectionViewController {
 
     @IBOutlet var showContactsCollectionView: UICollectionView!
     let service = Repository.sharedRepository //A singleton instance of our Service (class that works with firebase/firestore)
     var contacts = [Contact]() //An array holding all contacts from our database
-    var userAuthId : String!
+    var userLoggedInEmail : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +30,13 @@ class ShowContactsCVC: UICollectionViewController {
 
         // Do any additional setup after loading the view.
         
-        userAuthId = Auth.auth().currentUser?.uid
-        print("User id in Show Contacts: \(userAuthId ?? "NIL")")
+        userLoggedInEmail = Auth.auth().currentUser?.email
+        print("User id in Show Contacts: \(userLoggedInEmail ?? "NIL")")
         //to access a subcollections we can also create references by specifying the path to a document or collection as a string, with path components separated by a forward slash (/)
         
         //We call the trailing closure
         
-        service.findUserContacts(fromCollection: "users/" + userAuthId! + "/contacts"){  (returnedCollection) in
+        service.findUserContacts(fromCollection: "users/" + userLoggedInEmail! + "/contacts"){  (returnedCollection) in
             self.contacts = returnedCollection
             self.showContactsCollectionView.reloadData()
             //We update the badge on the contacts item to inform the user the number of contacts registered in the app
