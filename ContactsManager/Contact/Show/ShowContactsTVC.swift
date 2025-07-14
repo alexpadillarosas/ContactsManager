@@ -30,7 +30,7 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
     
     var selectedContact : Contact!
 //    var userAuthId : String!
-    var userId: String!
+    var userLoggedInEmail: String!
     
     //This is a reference to the UITableViewController in the storyboard, so we can programmatically manipulate it
     @IBOutlet var showContactsTVC: UITableView!
@@ -74,13 +74,13 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
         contactsNC.contactsTabBarItem.badgeColor = .systemBlue
 
         
-        userId = Auth.auth().currentUser?.email
-        print("User id in Show Contacts: \(userId ?? "NIL")")
+        userLoggedInEmail = Auth.auth().currentUser?.email
+        print("User id in Show Contacts: \(userLoggedInEmail ?? "NIL")")
         //to access a subcollections we can also create references by specifying the path to a document or collection as a string, with path components separated by a forward slash (/)
         
         //We call the trailing closure
         
-        service.findUserContacts(fromCollection: "users/" + userId! + "/contacts"){  (returnedCollection) in
+        service.findUserContacts(fromCollection: "users/" + userLoggedInEmail! + "/contacts"){  (returnedCollection) in
             self.contacts = returnedCollection
             self.showContactsTVC.reloadData()
             //We update the badge on the contacts item to inform the user the number of contacts registered in the app
@@ -108,7 +108,7 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
      iOS will call this method whenever the row appears on the scene
      */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! ContactTVCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ContactTVCell.identifier, for: indexPath) as! ContactTVCell
         
         /**Get the data (Contact) we will display on this cell, since iOS give as the row the for which this method is being executed in the parameter indexPath, we can use the index to get that specific contact in the array
          */
@@ -119,29 +119,10 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
         let contact = searching ? contacts[matches[indexPath.row]] : contacts[indexPath.row]
 
         // Configure the cell...
-        cell.fullNameLabel.text = contact.firstname + " " + contact.lastname
-        cell.phoneLabel.text = contact.phone
-        
-        if contact.favourite {
-            //Since we have set the property Symbol Scale to Medium, whenever we set it programmatically, we have to specify it as well
-            let largeStarImage = UIImage(systemName: "star.fill", withConfiguration: UIImage.SymbolConfiguration(scale: UIImage.SymbolScale.large))
-            cell.favouriteButton.setImage(largeStarImage, for: UIControl.State.normal)
-        }else {
-            //we remove the image from the button
-            let largeStarImage = UIImage(systemName: "star", withConfiguration: UIImage.SymbolConfiguration(scale: UIImage.SymbolScale.large))
-            cell.favouriteButton.setImage(largeStarImage, for: UIControl.State.normal)
-        }
-        
-        //For the picture
-        if !contact.photo.isEmpty && UIImage(named: contact.photo) != nil {
-            cell.photoImageView .image = UIImage(named: contact.photo)
-            
-        }else{//This else is needed to reset the default image, else gets cached it and display the wrong one whenever the image cannot be found in the project
-            cell.photoImageView.image = UIImage(systemName: "person.circle.fill")
-        }
-        //Round the Image View
-        cell.photoImageView.layer.cornerRadius = cell.photoImageView.frame.size.width / 2
-        cell.photoImageView.clipsToBounds = true
+        cell.setup(fullname: "\(contact.firstname) \(contact.lastname)",
+                   favourite: contact.favourite,
+                   photo: contact.photo,
+                   phone: contact.phone)
         
         /**
          This code is only to store the row number in the buttons tag
@@ -181,7 +162,7 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
             deleteConfirmationMessage(title: "Delete",
                                       message: "Are you sure you want to permanently delete \(contact.firstname) \(contact.lastname) ?",
                 delete: {
-                    if self.service.deleteContact(withContactId: contact.id, for: self.userId) {
+                    if self.service.deleteContact(withContactId: contact.id, for: self.userLoggedInEmail) {
                         print("Contact Deleted")
                         //If we perform the delete action while searching, then we also need to delete index from that array
                         if self.searching {

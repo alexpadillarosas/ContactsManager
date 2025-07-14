@@ -27,23 +27,30 @@ class Repository {
             .order(by: "firstname")
             .order(by: "lastname", descending: false)
             .addSnapshotListener { snapshot, error in  //we add a listener, so we can listen for updates made to our db, it returns a current snapshot with the found data, and an error if there is any
-                if let documents = snapshot?.documents { //we unwrap the documents inside of the snapshot
-                    
-                    contacts = documents.compactMap({ doc -> Contact? in    //we transform (by using compactMap) where we receive a document represented by the variable called doc and return a Contact
-                        let data = doc.data()
-                        return Contact(id: doc.documentID, dictionary: data) // using the initializer that receives the docId and the data in a dictionary
-                    })
-                    
-                    for contact in contacts {
-                        print(contact.toString())
-                    }
-                    completion(contacts) //we execute the completion which is a block of code received as parameter
-                   // self.contactsTableView.reloadData()
-                     
-                }else{
-                    print("Error fetching documents \(error!)")
+                
+                //guard we bring data from the database
+                guard let documents = snapshot?.documents else{
+                    print("No documents retrieved ")
+                    completion(contacts) //set the empty array
                     return
                 }
+                //Transform all documents into Contact objects 1 by 1, using the documents constant, as we have passed the guard.
+                contacts = documents
+                .compactMap { doc -> Contact in
+                    //doc.data() returns a dictionary
+                    //doc.documentID is the Document Id brought from the database
+                    //We create an instance of contact mapping all data from the dictionary into it, using the initializer
+                    return Contact(id: doc.documentID, dictionary: doc.data())
+                }
+                //Print it to double check we get the data
+                for contact in contacts {
+                    print(contact.toString())
+                }
+                //We've got all contacts from the db in the variable contacts.
+                //Set the contacts we've got from the db to the closure (receives an array of contacts, returns nothing)
+                //So after calling the function the param passed as array of contacts when calling findUserContacts will be set with the database data(contacts)
+                completion(contacts) //we execute the completion which is a block of code received as parameter
+                    
             }
     }
     

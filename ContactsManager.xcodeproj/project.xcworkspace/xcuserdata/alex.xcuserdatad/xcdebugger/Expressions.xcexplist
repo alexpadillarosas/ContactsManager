@@ -30,13 +30,10 @@
          contextName = "closure #1 in closure #1 in ContactRespository.find(collection:completion:):ContactRespository.swift">
       </ContextState>
       <ContextState
-         contextName = "AddContactTVC.shouldPerformSegue(withIdentifier:sender:):AddContactTVC.swift">
+         contextName = "ShowContactsTVC.tableView(_:commit:forRowAt:):ShowContactsTVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "firstnameTextField">
-            </PersistentString>
-            <PersistentString
-               value = "firstnameTextField.layer">
+               value = "indexPath.row">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -98,13 +95,40 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ShowContactsCVC.collectionView(_:layout:sizeForItemAt:):ShowContactsCVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "collectionView.contentInset">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShowContactsCVC.viewWillLayoutSubviews():ShowContactsCVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "floor(width)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ProfileTVC.viewDidLoad():ProfileTVC.swift">
       </ContextState>
       <ContextState
-         contextName = "ShowContactsTVC.tableView(_:commit:forRowAt:):ShowContactsTVC.swift">
+         contextName = "ShowContactsCVC.prepare(for:sender:):ShowContactsCVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "indexPath.row">
+               value = "selectedContact">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AddContactTVC.shouldPerformSegue(withIdentifier:sender:):AddContactTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "firstnameTextField">
+            </PersistentString>
+            <PersistentString
+               value = "firstnameTextField.layer">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
