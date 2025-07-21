@@ -169,7 +169,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GvI-5P-Rf9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1084" y="693"/>
+            <point key="canvasLocation" x="1050" y="688"/>
         </scene>
         <!--Sign Up-->
         <scene sceneID="YM1-fc-wJu">
@@ -352,7 +352,7 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WBa-C2-cQe">
-                                            <rect key="frame" x="246" y="29" width="102" height="34"/>
+                                            <rect key="frame" x="246" y="29.5" width="102" height="34"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72d-jp-QHD">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="34"/>
@@ -434,7 +434,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6cm-gU-IAi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3028" y="942"/>
+            <point key="canvasLocation" x="3314" y="796"/>
         </scene>
         <!--Contacts-->
         <scene sceneID="OJY-DK-4kQ">
@@ -459,7 +459,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vk6-ZY-U0h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4230" y="614"/>
+            <point key="canvasLocation" x="4529" y="429"/>
         </scene>
         <!--Profile-->
         <scene sceneID="U3X-Yh-gRK">
@@ -619,12 +619,12 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Profile" id="jzD-yQ-TIf">
                         <rightBarButtonItems>
-                            <barButtonItem title="Logout" image="rectangle.portrait.and.arrow.right" catalog="system" id="aIL-4K-n6r">
+                            <barButtonItem title="LogOut" id="aIL-4K-n6r">
                                 <connections>
                                     <action selector="logoutButtonDidPress:" destination="4Ut-Gj-INY" id="kyo-19-E5x"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="square.and.arrow.down.fill" catalog="system" id="vff-X3-MFY">
+                            <barButtonItem systemItem="save" id="vff-X3-MFY">
                                 <connections>
                                     <action selector="saveButtonDidPress:" destination="4Ut-Gj-INY" id="3st-B5-i3P"/>
                                 </connections>
@@ -643,9 +643,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iMb-Nd-5au" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5007" y="1775"/>
+            <point key="canvasLocation" x="4935" y="1541"/>
         </scene>
-        <!--Show ContactsCVC-->
+        <!--Contacts-->
         <scene sceneID="VsK-6H-uWE">
             <objects>
                 <collectionViewController id="GKS-is-7bD" customClass="ShowContactsCVC" customModule="ContactsManager" customModuleProvider="target" sceneMemberID="viewController">
@@ -759,7 +759,7 @@
                             <outlet property="delegate" destination="GKS-is-7bD" id="n2Z-21-ynk"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="aW7-ok-iEB"/>
+                    <navigationItem key="navigationItem" title="Contacts" id="aW7-ok-iEB"/>
                     <connections>
                         <outlet property="showContactsCollectionView" destination="FsP-Xf-1JV" id="fFh-uM-URt"/>
                     </connections>
@@ -991,7 +991,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Te3-7v-Eft" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7882.3255813953483" y="839.48497854077254"/>
+            <point key="canvasLocation" x="7738" y="756"/>
         </scene>
         <!--Add-->
         <scene sceneID="N3A-dR-Zby">
@@ -1388,7 +1388,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3z-as-zOr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="5RC-Kd-qeQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="8687.4418604651164" y="839.48497854077254"/>
+            <point key="canvasLocation" x="8692" y="755"/>
         </scene>
         <!--Profile-->
         <scene sceneID="eqC-6S-oI7">
@@ -1407,7 +1407,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pld-gZ-yWO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4123" y="1775"/>
+            <point key="canvasLocation" x="4015" y="1588"/>
         </scene>
         <!--Item-->
         <scene sceneID="FZh-tc-rhF">
@@ -1430,7 +1430,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="gSJ-oG-wpM"/>
+        <segue reference="iWr-3h-kWQ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="astronaut" width="1080" height="2400"/>
@@ -1441,8 +1441,6 @@
         <image name="person.circle" catalog="system" width="128" height="123"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="phone.circle" catalog="system" width="128" height="123"/>
-        <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="109"/>
-        <image name="square.and.arrow.down.fill" catalog="system" width="121" height="128"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -68,10 +68,15 @@ class Repository {
         ]
         //we set a particular Id so we use it
         db.collection("users").document(user.id).setData(dictionary){ error in
-            if let error = error {
-                print("user could not be added \(user.email), error: \(error)")
+            
+            //Guard the error is nil (no error) else return
+            guard error == nil else {
+                print("User could not be added: \(error!.localizedDescription)") //using ! to force unwrapp error, it is fine as at this point we know error is not nil
                 result = false
+                return
             }
+            print("User added: \(user.email)")
+            
         }
         return result
     }
@@ -117,16 +122,18 @@ class Repository {
         ]
         
         db.collection("users").document(user.email).updateData(dictionary){ error in
-            if let error = error {
-                print("Error updating user information: \(error)")
+            
+            //Guard the error is nil (no error) else return
+            guard error == nil else {
+                print("Error updating user information: \(error!.localizedDescription)") //using ! to force unwrapp error, it is fine as at this point we know error is not nil
                 result = false
-            }else{
-                print("User information updated")
+                return
             }
+            print("User information updated")
+            
         }
         return result
     }
-    
     
     
     
@@ -144,12 +151,14 @@ class Repository {
         ]
         
         db.collection("users/" + userId + "/contacts").document(contact.id!).updateData(dictionary){ error in
-            if let error = error {
-                print("Error updating document: \(error)")
+            //Guard the error is nil (no error) else return
+            guard error == nil else {
+                print("Error updating document: \(error!.localizedDescription)") //using ! to force unwrapp error, it is fine as at this point we know error is not nil
                 result = false
-            }else{
-                print("Document updated")
+                return
             }
+            print("Document updated")
+
         }
 
         return result
@@ -172,26 +181,17 @@ class Repository {
             "tags": [String]()
         ]
         
-        /*
-        db.collection("users/" + userId + "/contacts").addDocument(data: dictionary){ error in
-            if let error = error {
-                print("Contact has not been added: \(contact.email) \(error)")
-                result = false
-            }else{
-                print("Contact Added: \(contact.email)")
-            }
-            
-        }
-         */
         let newContactRef = db.collection("users").document(userId).collection("contacts").document()
         
         newContactRef.setData(dictionary) { error in
-            if let error = error {
-                print("Error adding the document \(error.localizedDescription)")
+            //Guard the error is nil (no error) else return
+            guard error == nil else {
+                print("Error adding the document: \(error!.localizedDescription)") //using ! to force unwrapp error, it is fine as at this point we know error is not nil
                 result = false
-            }else{
-                print("Contact was added")
+                return
             }
+            print("Contact was added")
+            
         }
         
         return result
@@ -201,12 +201,15 @@ class Repository {
         var result = true
         
         db.collection("users/" + userId + "/contacts").document(contactId).delete(){ error in
-            if let error = error {
-                print("Error removing document: \(error.localizedDescription)")
+            
+            //Guard the error is nil (no error) else return
+            guard error == nil else {
+                print("Error deleting document: \(error!.localizedDescription)") //using ! to force unwrapp error, it is fine as at this point we know error is not nil
                 result = false
-            }else{
-                print("Document successfully deleted")
+                return
             }
+            print("Document successfully deleted")
+                
         }
         return result
     }

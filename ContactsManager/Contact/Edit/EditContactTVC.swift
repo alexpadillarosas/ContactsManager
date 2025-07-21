@@ -58,6 +58,8 @@ class EditContactTVC: UITableViewController {
              }
                 or
             Switch statement
+         
+            To set the unwind segue identifier, in Main.storyboard go to Edit Scene in the component hierarchy view (left side) find the unwind segue, click on it and set a identifier value in the attributes inspector.
         */
                 
             switch identifier {
@@ -109,9 +111,9 @@ class EditContactTVC: UITableViewController {
             
             let service = Repository.sharedRepository
             //Get the logged user Id
-            let userAuthId = Auth.auth().currentUser?.uid
+            let loggedInUserEmail = Auth.auth().currentUser?.email
             //Update the contact
-            if service.updateContact(for: userAuthId!, withData: contact){
+            if service.updateContact(for: loggedInUserEmail!, withData: contact){
                  print("contact updated")
             }
         }
