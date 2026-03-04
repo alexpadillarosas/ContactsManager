@@ -164,38 +164,57 @@ class Repository {
         return result
     }
     
-    func addContact(for userId: String, withData contact: Contact) -> Bool {
-        var result = true
-        //let userAuthId = Auth.auth().currentUser?.uid
-        print("User id in Show Contacts: \(userId)")
+//    func addContact(for userId: String, withData contact: Contact) -> Bool {
+//        var result = true
+//        //let userAuthId = Auth.auth().currentUser?.uid
+//        print("User id in Show Contacts: \(userId)")
+//        
+//        let dictionary : [String: Any] = [
+//            "firstname": contact.firstname as String,
+//            "lastname": contact.lastname as String,
+//            "email": contact.email as String,
+//            "favourite": contact.favourite as Bool,
+//            "note": contact.note as String,
+//            "phone": contact.phone as String,
+//            "photo": contact.photo as String,
+//            "registered": FieldValue.serverTimestamp(),
+//            "tags": [String]()
+//        ]
+//        
+//        let newContactRef = db.collection("users").document(userId).collection("contacts").document()
+//        
+//        newContactRef.setData(dictionary) { error in
+//            //Guard the error is nil (no error) else return
+//            guard error == nil else {
+//                print("Error adding the document: \(error!.localizedDescription)") //using ! to force unwrapp error, it is fine as at this point we know error is not nil
+//                result = false
+//                return
+//            }
+//            print("Contact was added")
+//            
+//        }
+//        
+//        return result
+//    }
+    func addContact(for userId: String, withData contact: Contact) async throws {
+        // We use the representation we defined in the model
+        let data = contact.toDictionary()
         
-        let dictionary : [String: Any] = [
-            "firstname": contact.firstname as String,
-            "lastname": contact.lastname as String,
-            "email": contact.email as String,
-            "favourite": contact.favourite as Bool,
-            "note": contact.note as String,
-            "phone": contact.phone as String,
-            "photo": contact.photo as String,
-            "registered": FieldValue.serverTimestamp(),
-            "tags": [String]()
-        ]
+        // Create the reference
+        let newContactRef = db.collection("users")
+                              .document(userId)
+                              .collection("contacts")
+                              .document()
         
-        let newContactRef = db.collection("users").document(userId).collection("contacts").document()
+        // Using 'try await' allows the caller to catch any network/permission errors
+        try await newContactRef.setData(data)
         
-        newContactRef.setData(dictionary) { error in
-            //Guard the error is nil (no error) else return
-            guard error == nil else {
-                print("Error adding the document: \(error!.localizedDescription)") //using ! to force unwrapp error, it is fine as at this point we know error is not nil
-                result = false
-                return
-            }
-            print("Contact was added")
-            
-        }
+        // Update the local object with the Firestore-generated ID
+        contact.id = newContactRef.documentID
         
-        return result
+        print("Contact added successfully with ID: \(contact.id!)")
     }
+    
     
     func deleteContact(withContactId contactId: String, for userId: String) -> Bool {
         var result = true

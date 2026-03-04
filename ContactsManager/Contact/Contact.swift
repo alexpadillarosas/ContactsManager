@@ -88,6 +88,26 @@ class Contact {
 
     }
     
+    func toDictionary() -> [String: Any]{
+        
+        var registeredValue : Any = self.registered
+        if self.id == nil {
+            registeredValue = FieldValue.serverTimestamp()
+        }
+        
+        return [
+            "firstname": self.firstname,
+            "lastname": self.lastname,
+            "email": self.email,
+            "favourite": self.favourite,
+            "note": self.note,
+            "phone": self.phone,
+            "photo": self.photo,
+            "registered": registeredValue,
+            "tags": self.tags
+        ]
+    }
+    
     func toString() -> String {
         return "id: \(id ?? "NO AUTOID"), firstname: \(firstname), lastname: \(lastname), email: \(email), phone: \(phone), photo: \(photo), favourite \(favourite), note: \(note), registered: \(registered)"
     }

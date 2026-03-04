@@ -19,7 +19,7 @@ class AddContactTVC: UITableViewController {
     @IBOutlet weak var notesTextField: UITextField!
     @IBOutlet weak var photoTextField: UITextField!
     
-    /* example for validation: https://www.google.com/search?q=ios+uikit+form+validation&rlz=1C5CHFA_enAU916AU916&oq=ios+uikit+form+validation+&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIKCAEQABiABBiiBDIKCAIQABiABBiiBDIKCAMQABiABBiiBDIKCAQQABiABBiiBNIBCTExNzQ4ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:f54a8c92,vid:5Rn6JJAuyK0,st:0
+    /* example for validation using different components: https://www.google.com/search?q=ios+uikit+form+validation&rlz=1C5CHFA_enAU916AU916&oq=ios+uikit+form+validation+&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIKCAEQABiABBiiBDIKCAIQABiABBiiBDIKCAMQABiABBiiBDIKCAQQABiABBiiBNIBCTExNzQ4ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:f54a8c92,vid:5Rn6JJAuyK0,st:0
     */
     
     
@@ -33,14 +33,15 @@ class AddContactTVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        var totalInvalidComponents : Int = 0
+
+    private func showInvalidTextFilds(){
+//        var totalInvalidComponents : Int = 0
         if firstnameTextField.text.isBlank {
 //            Move these 2 to the extension class
 //            firstnameTextField.layer.borderColor = UIColor.red.cgColor
 //            firstnameTextField.layer.borderWidth = 0.5
             firstnameTextField.showInvalidBorder()
-            totalInvalidComponents  = totalInvalidComponents + 1
+//            totalInvalidComponents  = totalInvalidComponents + 1
 
         }else{
 //            Move these 2 to the extension class
@@ -49,40 +50,43 @@ class AddContactTVC: UITableViewController {
             firstnameTextField.removeInvalidBorder()
 
         }
+        /**
+         using ternary operators to shorten the code:
+         (condition ? valueIfTrue : valueIfFalse)
+         */
+        lastnameTextField.text.isBlank ? lastnameTextField.showInvalidBorder() : lastnameTextField.removeInvalidBorder()
+        
+        emailTextField.text.isBlank ? emailTextField.showInvalidBorder() : emailTextField.removeInvalidBorder()
 
-        if lastnameTextField.text.isBlank {
-            lastnameTextField.showInvalidBorder()
-            totalInvalidComponents  = totalInvalidComponents + 1
-
-        }else{
-            lastnameTextField.removeInvalidBorder()
-        }
-
-        
-        if emailTextField.text.isBlank {
-            emailTextField.showInvalidBorder()
-            totalInvalidComponents  = totalInvalidComponents + 1
-        }else{
-            emailTextField.removeInvalidBorder()
-        }
-        
-        if phoneTextField.text.isBlank {
-            phoneTextField.showInvalidBorder()
-            totalInvalidComponents  = totalInvalidComponents + 1
-        }else{
-            phoneTextField.removeInvalidBorder()
-        }
-        
-        
-        if totalInvalidComponents > 0 {
+        phoneTextField.text.isBlank ? phoneTextField.showInvalidBorder() : phoneTextField.removeInvalidBorder()
+            
+    }
+    /**
+     Returns true if the form is valid ( the user has input all mandatory fields )
+     else return false
+     */
+    private func isFormValid() -> Bool {
+        //include all your validations here
+        if firstnameTextField.text.isBlank ||
+            lastnameTextField.text.isBlank ||
+            emailTextField.text.isBlank ||
+            phoneTextField.text.isBlank {
             return false
         }else{
             return true
         }
-
-        
+    
     }
-
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if !isFormValid() {
+            showInvalidTextFilds()
+            return false
+        }
+        return true
+    }
+    
+     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -107,9 +111,16 @@ class AddContactTVC: UITableViewController {
             let userId = Auth.auth().currentUser?.email
             //Create a instance of the repository class
             let service = Repository.sharedRepository
-            //Add a contact to the logged in user
-            if service.addContact(for: userId!, withData: contact){
-                print("contact saved")
+            
+            Task{
+                do{
+                    try await service.addContact(for: userId!, withData: contact)
+                    // Success: Navigate back or show success message
+                    // self.navigationController?.popViewController(animated: true)
+                    print("contact saved")
+                } catch{
+                    print("Contact NOT saved, Error: \(error.localizedDescription)")
+                }
             }
             
             
@@ -119,3 +130,4 @@ class AddContactTVC: UITableViewController {
 
 
 }
+

@@ -71,7 +71,7 @@ class ShowContactsCVC: UICollectionViewController {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContactCVCell.identifier, for: indexPath) as! ContactCVCell
     
-        let contact = contacts[indexPath.row]
+        let contact = contacts[indexPath.item]
         // Configure the cell
         cell.setup(fullname: "\(contact.firstname) \(contact.lastname)",
                    phone: contact.phone,
@@ -121,7 +121,7 @@ class ShowContactsCVC: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        selectedContact = contacts[indexPath.row]
+        selectedContact = contacts[indexPath.item]
         return true
     }
     
