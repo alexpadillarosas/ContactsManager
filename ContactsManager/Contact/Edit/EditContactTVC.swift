@@ -112,10 +112,20 @@ class EditContactTVC: UITableViewController {
             let service = Repository.sharedRepository
             //Get the logged user Id
             let loggedInUserEmail = Auth.auth().currentUser?.email
-            //Update the contact
-            if service.updateContact(for: loggedInUserEmail!, withData: contact){
-                 print("contact updated")
+            
+            Task {
+                do {
+                    try await service.updateContact(for: loggedInUserEmail!, withData: contact)
+                    // If we reach here, the update definitely worked
+//                    self.navigationController?.popViewController(animated: true)
+                    print("contact updated")
+                } catch {
+                    // If the network is down or permissions fail, this catch block runs
+                    print("Update failed: \(error.localizedDescription)")
+//                    self.showErrorAlert(message: error.localizedDescription)
+                }
             }
+            
         }
         
     }

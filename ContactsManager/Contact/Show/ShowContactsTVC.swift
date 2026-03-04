@@ -162,13 +162,23 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
             deleteConfirmationMessage(title: "Delete",
                                       message: "Are you sure you want to permanently delete \(contact.firstname) \(contact.lastname) ?",
                 delete: {
-                    if self.service.deleteContact(withContactId: contact.id, for: self.userLoggedInEmail) {
-                        print("Contact Deleted")
-                        //If we perform the delete action while searching, then we also need to delete index from that array
-                        if self.searching {
-                            self.matches.remove(at: indexPath.row)
+
+                    Task {
+                        do {
+                            try await self.service.deleteContact(withContactId: contact.id, for: self.userLoggedInEmail)
+                            // Success: Now it's safe to pop the view or update the table
+                            print("Contact Deleted")
+                            if self.searching {
+                                self.matches.remove(at: indexPath.row)
+                            }
+                        } catch {
+                            // Error: Show an alert if deletion failed (e.g. Permission Denied)
+                            print("Error deleting contact: \(error.localizedDescription)")
+//                            self.showErrorAlert(message: error.localizedDescription)
                         }
-                    }
+                     }
+                
+                
                 }, cancel: {
                     print("Cancelled")
                 })

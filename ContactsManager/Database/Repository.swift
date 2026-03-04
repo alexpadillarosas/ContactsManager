@@ -134,35 +134,35 @@ class Repository {
         }
         return result
     }
-    
-    
-    
-    func updateContact(for userId: String, withData contact: Contact) -> Bool {
-        var result = true
 
-        let dictionary : [String : Any] = [
-            "firstname": contact.firstname as String,
-            "lastname": contact.lastname as String,
-            "email": contact.email as String,
-            "phone": contact.phone as String,
-            "photo": contact.photo as String,
-            "favourite": contact.favourite as Bool,
-            "note": contact.note as String
-        ]
-        
-        db.collection("users/" + userId + "/contacts").document(contact.id!).updateData(dictionary){ error in
-            //Guard the error is nil (no error) else return
-            guard error == nil else {
-                print("Error updating document: \(error!.localizedDescription)") //using ! to force unwrapp error, it is fine as at this point we know error is not nil
-                result = false
-                return
-            }
-            print("Document updated")
 
-        }
-
-        return result
-    }
+    
+//    func updateContact(for userId: String, withData contact: Contact) -> Bool {
+//        var result = true
+//
+//        let dictionary : [String : Any] = [
+//            "firstname": contact.firstname as String,
+//            "lastname": contact.lastname as String,
+//            "email": contact.email as String,
+//            "phone": contact.phone as String,
+//            "photo": contact.photo as String,
+//            "favourite": contact.favourite as Bool,
+//            "note": contact.note as String
+//        ]
+//        
+//        db.collection("users/" + userId + "/contacts").document(contact.id!).updateData(dictionary){ error in
+//            //Guard the error is nil (no error) else return
+//            guard error == nil else {
+//                print("Error updating document: \(error!.localizedDescription)") //using ! to force unwrapp error, it is fine as at this point we know error is not nil
+//                result = false
+//                return
+//            }
+//            print("Document updated")
+//
+//        }
+//
+//        return result
+//    }
     
 //    func addContact(for userId: String, withData contact: Contact) -> Bool {
 //        var result = true
@@ -196,6 +196,30 @@ class Repository {
 //        
 //        return result
 //    }
+    
+    
+    func updateContact(for userId: String, withData contact: Contact) async throws {
+        // 1. Guard against a missing ID to avoid force-unwrapping crashes
+        guard let contactId = contact.id else {
+            print("Error: Attempted to update a contact without an ID")
+            return
+        }
+        
+        // 2. Use your existing dictionary mapping
+        let data = contact.toDictionary()
+        
+        // 3. Reference the specific document using the cleaner path syntax
+        let contactRef = db.collection("users")
+                            .document(userId)
+                            .collection("contacts")
+                            .document(contactId)
+        
+        // 4. Perform the update and await the result
+        try await contactRef.updateData(data)
+        
+        print("Contact \(contactId) updated successfully")
+    }
+    
     func addContact(for userId: String, withData contact: Contact) async throws {
         // We use the representation we defined in the model
         let data = contact.toDictionary()
@@ -215,22 +239,37 @@ class Repository {
         print("Contact added successfully with ID: \(contact.id!)")
     }
     
-    
-    func deleteContact(withContactId contactId: String, for userId: String) -> Bool {
-        var result = true
+    func deleteContact(withContactId contactId: String, for userId: String) async throws {
+        // 1. Reference the document path clearly
+        let contactRef = db.collection("users")
+                            .document(userId)
+                            .collection("contacts")
+                            .document(contactId)
         
-        db.collection("users/" + userId + "/contacts").document(contactId).delete(){ error in
-            
-            //Guard the error is nil (no error) else return
-            guard error == nil else {
-                print("Error deleting document: \(error!.localizedDescription)") //using ! to force unwrapp error, it is fine as at this point we know error is not nil
-                result = false
-                return
-            }
-            print("Document successfully deleted")
-                
-        }
-        return result
+        // 2. Await the deletion. This ensures the function doesn't 'finish'
+        // until the server confirms the record is gone.
+        try await contactRef.delete()
+        
+        print("Document \(contactId) successfully deleted")
     }
+
+    
+    
+//    func deleteContact(withContactId contactId: String, for userId: String) -> Bool {
+//        var result = true
+//        
+//        db.collection("users/" + userId + "/contacts").document(contactId).delete(){ error in
+//            
+//            //Guard the error is nil (no error) else return
+//            guard error == nil else {
+//                print("Error deleting document: \(error!.localizedDescription)") //using ! to force unwrapp error, it is fine as at this point we know error is not nil
+//                result = false
+//                return
+//            }
+//            print("Document successfully deleted")
+//                
+//        }
+//        return result
+//    }
     
 }
