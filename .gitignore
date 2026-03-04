@@ -1,2 +1,7 @@
 *GoogleService-Info.plist
+# macOS clutter
+.DS_Store
+
+# Xcode user-specific files (cursor position, open tabs)
+xcuserdata/
 *.xcuserstate
