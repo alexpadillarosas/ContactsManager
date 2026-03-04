@@ -1,9 +1,3 @@
-//
-//  AddContactTVC.swift
-//  ContactsManager
-//
-//  Created by alex on 23/7/2024.
-//
 
 import UIKit
 import FirebaseFirestore
@@ -11,6 +5,7 @@ import FirebaseAuth
 
 class AddContactTVC: UITableViewController {
 
+    // MARK: - Outlets
     @IBOutlet weak var firstnameTextField: UITextField!
     @IBOutlet weak var lastnameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -19,115 +14,84 @@ class AddContactTVC: UITableViewController {
     @IBOutlet weak var notesTextField: UITextField!
     @IBOutlet weak var photoTextField: UITextField!
     
-    /* example for validation using different components: https://www.google.com/search?q=ios+uikit+form+validation&rlz=1C5CHFA_enAU916AU916&oq=ios+uikit+form+validation+&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIKCAEQABiABBiiBDIKCAIQABiABBiiBDIKCAMQABiABBiiBDIKCAQQABiABBiiBNIBCTExNzQ4ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:f54a8c92,vid:5Rn6JJAuyK0,st:0
-    */
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-
-    private func showInvalidTextFilds(){
-//        var totalInvalidComponents : Int = 0
-        if firstnameTextField.text.isBlank {
-//            Move these 2 to the extension class
-//            firstnameTextField.layer.borderColor = UIColor.red.cgColor
-//            firstnameTextField.layer.borderWidth = 0.5
-            firstnameTextField.showInvalidBorder()
-//            totalInvalidComponents  = totalInvalidComponents + 1
-
-        }else{
-//            Move these 2 to the extension class
-//            firstnameTextField.layer.borderColor = UIColor.lightGray.cgColor
-//            firstnameTextField.layer.borderWidth = 0.0
-            firstnameTextField.removeInvalidBorder()
-
-        }
-        /**
-         using ternary operators to shorten the code:
-         (condition ? valueIfTrue : valueIfFalse)
-         */
-        lastnameTextField.text.isBlank ? lastnameTextField.showInvalidBorder() : lastnameTextField.removeInvalidBorder()
+    // MARK: - Actions
+    
+    /// This is the main "Save" logic.
+    /// Note: Connect this to a Bar Button Item or a Button in your Storyboard.
+    @IBAction func saveButtonTapped(_ sender: Any) {
         
-        emailTextField.text.isBlank ? emailTextField.showInvalidBorder() : emailTextField.removeInvalidBorder()
-
-        phoneTextField.text.isBlank ? phoneTextField.showInvalidBorder() : phoneTextField.removeInvalidBorder()
-            
-    }
-    /**
-     Returns true if the form is valid ( the user has input all mandatory fields )
-     else return false
-     */
-    private func isFormValid() -> Bool {
-        //include all your validations here
-        if firstnameTextField.text.isBlank ||
-            lastnameTextField.text.isBlank ||
-            emailTextField.text.isBlank ||
-            phoneTextField.text.isBlank {
-            return false
-        }else{
-            return true
+        // 1. Validate the UI
+        guard isFormValid() else {
+            showInvalidTextFields()
+            return
         }
-    
+        
+        // 2. Extract data and create the Contact object
+        // We use nil-coalescing (?? "") to avoid crashes from empty fields
+        let contact = Contact(
+            firstname: firstnameTextField.text ?? "",
+            lastname: lastnameTextField.text ?? "",
+            email: emailTextField.text ?? "",
+            phone: phoneTextField.text ?? "",
+            photo: photoTextField.text ?? "",
+            note: notesTextField.text ?? "",
+            favourite: favouriteSwitch.isOn,
+            registered: Timestamp(date: Date()),
+            tags: []
+        )
+        
+        // 3. Save to Firebase
+        saveContact(contact)
     }
+
+    // MARK: - Logic Methods
     
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if !isFormValid() {
-            showInvalidTextFilds()
-            return false
+    private func saveContact(_ contact: Contact) {
+        // Use the permanent UID (User ID) instead of Email for the database key
+        guard let userId = Auth.auth().currentUser?.email else { return }
+        
+        let service = Repository.sharedRepository
+        
+        Task {
+            do {
+                try await service.addContact(for: userId, withData: contact)
+                print("✅ Contact saved successfully")
+                
+                // 4. Navigate back only after the save is successful
+                self.navigationController?.popViewController(animated: true)
+            } catch {
+                print("❌ Error saving: \(error.localizedDescription)")
+                // Optional: Show an alert to the student/user here
+            }
+        }
+    }
+
+    /// Checks if mandatory fields are filled.
+    /// Teaching tip: Using a list/array makes it easy to add more fields later.
+    private func isFormValid() -> Bool {
+        let mandatoryFields = [firstnameTextField, lastnameTextField, emailTextField, phoneTextField]
+        
+        // If any field is blank, the form is invalid
+        for field in mandatoryFields {
+            if field?.text?.isBlank ?? true {
+                return false
+            }
         }
         return true
     }
-    
-     
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    /// Updates the UI borders to provide visual feedback to the student.
+    private func showInvalidTextFields() {
+        let fields = [firstnameTextField, lastnameTextField, emailTextField, phoneTextField]
         
-        if segue.destination is ShowContactsTVC {
-            
-            //create an contact object
-            let contact = Contact(firstname: firstnameTextField.text!,
-                                  lastname: lastnameTextField.text!,
-                                  email: emailTextField.text!,
-                                  phone: phoneTextField.text!,
-                                  photo: photoTextField.text!,
-                                  note: notesTextField.text!,
-                                  favourite: favouriteSwitch.isOn,
-                                  registered: Timestamp(date: Date()),
-                                  tags: [String]())
-            
-            //Get the user id from the current logged in user.
-            let userId = Auth.auth().currentUser?.email
-            //Create a instance of the repository class
-            let service = Repository.sharedRepository
-            
-            Task{
-                do{
-                    try await service.addContact(for: userId!, withData: contact)
-                    // Success: Navigate back or show success message
-                    // self.navigationController?.popViewController(animated: true)
-                    print("contact saved")
-                } catch{
-                    print("Contact NOT saved, Error: \(error.localizedDescription)")
-                }
+        for field in fields {
+            if let textField = field {
+                textField.text.isBlank ? textField.showInvalidBorder() : textField.removeInvalidBorder()
             }
-            
-            
         }
-        
     }
-
-
 }
-

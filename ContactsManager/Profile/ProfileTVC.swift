@@ -1,132 +1,117 @@
-//
-//  ProfileTCV.swift
-//  ContactsManager
-//
-//  Created by alex on 27/7/2024.
-//
-
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
-import UniformTypeIdentifiers
+
 class ProfileTVC: UITableViewController {
 
-    @IBOutlet weak var registerAtDatePicker: UIDatePicker!
-    @IBOutlet weak var phoneTextField: UITextField!
-    @IBOutlet weak var lastnameTextField: UITextField!
+    // MARK: - Outlets
     @IBOutlet weak var firstnameTextField: UITextField!
+    @IBOutlet weak var lastnameTextField: UITextField!
+    @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var dobDatePicker: UIDatePicker!
-    
+    @IBOutlet weak var registerAtDatePicker: UIDatePicker!
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
     
+    // MARK: - Properties
     let service = Repository.sharedRepository
-    var user : User!
+    var user: User? // Use optional to handle the "loading" state:
+    /**
+     When the ProfileTVC first loads, the screen appears, but Firebase hasn't responded yet. By making the user optional, you prevent the app from crashing.
+     Notice: "If user is nil, we are still waiting for the internet. Don't let the user click 'Save' yet!"
+     The Code: saveBarButtonItem.isEnabled = false (Because the data is still nil).
+     */
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        //Get the user id from the current logged in user.
-        let userId = Auth.auth().currentUser?.email
-        self.saveBarButtonItem.isEnabled = false
-        
-        service.findUserInfo(for: userId!) { returnedUser in
-            //we assign the returned user from the datase into a class property, so we can reuse it everywhere in this class.
-            self.user = returnedUser
-            
-            self.firstnameTextField.text = self.user.firstname
-            self.lastnameTextField.text = self.user.lastname
-            self.phoneTextField.text = self.user.phone
-            self.emailLabel.text = self.user.email
-            
-            let dobValue = self.user.dob.dateValue()
-            self.dobDatePicker.setDate(dobValue, animated: true)
-            
-            
-            let dateValue = self.user.registered.dateValue()
-            self.registerAtDatePicker.setDate(dateValue, animated: true)
-            self.saveBarButtonItem.isEnabled = true
-        }
-        
+        loadUserProfile()
     }
     
-    func isDataValid() -> Bool {
-        var totalInvalidComponents : Int = 0
-        if firstnameTextField.text.isBlank {
-            firstnameTextField.showInvalidBorder()
-            totalInvalidComponents = totalInvalidComponents + 1
-        }else{
-            firstnameTextField.removeInvalidBorder()
-        }
+    // MARK: - Logic
+    
+    private func loadUserProfile() {
+        // Teach students: Always use UID for database lookups
+        guard let userId = Auth.auth().currentUser?.email else { return }
         
-        if lastnameTextField.text.isBlank {
-            lastnameTextField.showInvalidBorder()
-            totalInvalidComponents = totalInvalidComponents + 1
-        }else{
-            lastnameTextField.removeInvalidBorder()
-        }
+        saveBarButtonItem.isEnabled = false // Disable save until data is loaded
         
-        if totalInvalidComponents > 0 {
-            showAlertMessage(title: "Validation", message: "Please input the required information")
+        Task {
+            do {
+                // Fetch user data using our async service
+                if let returnedUser = try await service.findUserInfo(for: userId) {
+                    //Here the data is back from the DB
+                    self.user = returnedUser
+                    self.setupUI(with: returnedUser)
+                    self.saveBarButtonItem.isEnabled = true
+                }
+            } catch {
+                print("Error loading profile: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func setupUI(with user: User) {
+        firstnameTextField.text = user.firstname
+        lastnameTextField.text = user.lastname
+        phoneTextField.text = user.phone
+        emailLabel.text = user.email
+        
+        // Convert Firestore Timestamps to Swift Dates for the DatePickers
+        dobDatePicker.setDate(user.dob.dateValue(), animated: true)
+        registerAtDatePicker.setDate(user.registered.dateValue(), animated: true)
+    }
+    
+    private func isDataValid() -> Bool {
+        // Teach students: Guard statements make validation much cleaner than if-else
+        guard let first = firstnameTextField.text, !first.isBlank,
+              let last = lastnameTextField.text, !last.isBlank else {
+            
+            // Highlight fields that are empty
+            firstnameTextField.text.isBlank ? firstnameTextField.showInvalidBorder() : firstnameTextField.removeInvalidBorder()
+            lastnameTextField.text.isBlank ? lastnameTextField.showInvalidBorder() : lastnameTextField.removeInvalidBorder()
+            
+            showAlertMessage(title: "Validation", message: "First and Last name are mandatory.")
             return false
-        }else{
-            return true
         }
+        return true
     }
 
-    /**
-     Method used to save user's information
-     */
-    @IBAction func saveButtonDidPress(_ sender: Any) {
-        
-        if isDataValid() {
-            
-            let user = User(id: user.id,
-                            firstname: firstnameTextField.text!,
-                            lastname: lastnameTextField.text!,
-                            email: emailLabel.text!,
-                            phone: phoneTextField.text!,
-                            photo: "",
-                            dob: Timestamp(date: dobDatePicker.date)
-            )
-            
-            _ = service.updateUser(withData: user)
-        }
-        
-    }
+    // MARK: - Actions
     
+    @IBAction func saveButtonDidPress(_ sender: Any) {
+        guard isDataValid(), let currentUser = self.user else {
+            return
+        }
+        
+        // Update our local object with the new UI values
+        currentUser.firstname = firstnameTextField.text!
+        currentUser.lastname = lastnameTextField.text!
+        currentUser.phone = phoneTextField.text!
+        currentUser.dob = Timestamp(date: dobDatePicker.date)
+        
+        Task {
+            do {
+                try await service.updateUser(withData: currentUser)
+                showAlertMessage(title: "Success", message: "Profile Updated!")
+            } catch {
+                showAlertMessage(title: "Error", message: error.localizedDescription)
+            }
+        }
+    }
 
-    /**
-     Method used to logout the user and force a new login
-     */
     @IBAction func logoutButtonDidPress(_ sender: Any) {
-        //Logout the user from firebase authentication
         do {
             try Auth.auth().signOut()
-        }catch {
-            print("already logged out")
+            
+            // Teaching Tip: When logging out, replace the root view controller
+            // so the user cannot click "Back" to see the profile.
+            if let loginNav = storyboard?.instantiateViewController(identifier: "LoginVC") as? UINavigationController {
+                view.window?.rootViewController = loginNav
+                view.window?.makeKeyAndVisible()
+            }
+        } catch {
+            print("Error signing out")
         }
-        //redirect the app to the login scene
-        let loginViewController = self.storyboard?.instantiateViewController(identifier: "LoginVC") as? UINavigationController
-        
-        self.view.window?.rootViewController = loginViewController
-        self.view.window?.makeKeyAndVisible()
-         
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+

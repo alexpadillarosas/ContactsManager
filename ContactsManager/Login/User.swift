@@ -57,6 +57,23 @@ class User {
         )
     }
     
+    func toDictionary() -> [String: Any]{
+        
+        // Handle the Timestamp vs FieldValue logic safely
+        let dobValue: Any = self.dob ?? FieldValue.serverTimestamp()
+        let registeredValue: Any = self.registered ?? FieldValue.serverTimestamp()
+        
+        return [
+            "firstname": firstname,
+            "lastname": lastname,
+            "email": email,
+            "phone": phone,
+            "photo": photo,
+            "dob": dobValue,
+            "registered": registeredValue
+        ]
+    }
+    
     func toString() -> String {
         return "id: \(id ?? "NO ID"), firstname: \(firstname), lastname: \(lastname), email: \(email), phone: \(phone), photo: \(photo), registered: \(registered ?? Timestamp(date: Date()))"
     }

@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 /**
 
  */
@@ -38,6 +39,39 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
     let service = Repository.sharedRepository //A singleton instance of our Service (class that works with firebase/firestore)
     var contacts = [Contact]() //An array holding all contacts from our database
        
+    // This variable holds the 'connection' to Firestore, we need it to stop the listener when the user is in another screen rather than the contacts table view controller
+    var contactsListener: ListenerRegistration?
+    
+    /**
+         We start listening to the db when the viewAppear
+     */
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //here we want to have a reference to the tab bar item icon, so we can add a badge with the number of contacts
+        let contactsNC = self.parent as! ContactsNC
+        contactsNC.contactsTabBarItem.badgeColor = .systemBlue
+
+        
+        userLoggedInEmail = Auth.auth().currentUser?.email
+        print("User id in Show Contacts: \(userLoggedInEmail ?? "NIL")")
+        //store the listener, so we can stop it when the view Disappear
+        self.contactsListener = service.findUserContacts(fromCollection: "users/" + userLoggedInEmail! + "/contacts"){  (returnedCollection) in
+            self.contacts = returnedCollection
+            self.showContactsTVC.reloadData()
+            //We update the badge on the contacts item to inform the user the number of contacts registered in the app
+            contactsNC.contactsTabBarItem.badgeValue = "\(self.contacts.count)"
+        }
+    }
+    
+    /**
+     stop the listener. When the user navigates away from the ContactsTableViewController, we "cut the wire" to save battery and Firebase data.
+     */
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // "Close the tap": Stop listening when the user switches tabs
+        self.contactsListener?.remove()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -69,17 +103,18 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
             }
         */
         
-        //here we want to have a reference to the tab bar item icon, so we can add a badge with the number of contacts
-        let contactsNC = self.parent as! ContactsNC
-        contactsNC.contactsTabBarItem.badgeColor = .systemBlue
-
         
-        userLoggedInEmail = Auth.auth().currentUser?.email
-        print("User id in Show Contacts: \(userLoggedInEmail ?? "NIL")")
+        
+        
+        
+        
+        
+        
+        
         //to access a subcollections we can also create references by specifying the path to a document or collection as a string, with path components separated by a forward slash (/)
         
         //We call the trailing closure
-        
+        /*
         service.findUserContacts(fromCollection: "users/" + userLoggedInEmail! + "/contacts"){  (returnedCollection) in
             self.contacts = returnedCollection
             self.showContactsTVC.reloadData()
@@ -88,6 +123,7 @@ class ShowContactsTVC: UITableViewController , UISearchBarDelegate {
         }
 
         print("total \(contacts.count)")
+         */
         
     }
 

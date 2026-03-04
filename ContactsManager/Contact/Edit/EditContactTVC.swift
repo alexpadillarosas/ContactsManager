@@ -1,18 +1,18 @@
-//
-//  EditContactTVC.swift
-//  ContactsManager
-//
-//  Created by alex on 20/7/2024.
-//
-
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
+/**
+ Create an Unwind segue but from the Instead, Control-drag from  the View Controller itself at the top of the scene (the Yellow Circle icon) to the Exit icon.
+ This is a unwind segue we will trigger manually.
+ Select the segue and then give it an identifier: unwindAfterEditSave, then when tapping the save button, trigger the unwind segue
+ */
 class EditContactTVC: UITableViewController {
     
-    var contact : Contact!
+    // The contact to be edited, passed from the previous screen
+    var contact: Contact!
     
-    @IBOutlet weak var contactImageView: UIImageView!
+    // MARK: - Outlets
     @IBOutlet weak var favouriteSwitch: UISwitch!
     @IBOutlet weak var firstnameTextField: UITextField!
     @IBOutlet weak var lastnameTextField: UITextField!
@@ -20,115 +20,105 @@ class EditContactTVC: UITableViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var notesTextField: UITextField!
     @IBOutlet weak var photoImageView: UIImageView!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        favouriteSwitch.setOn(contact.favourite, animated: true)
+        setupUI()
+    }
+    
+    private func setupUI() {
+        // Fill the form with existing data
+        favouriteSwitch.setOn(contact.favourite, animated: false)
         firstnameTextField.text = contact.firstname
         lastnameTextField.text = contact.lastname
         phoneTextField.text = contact.phone
         emailTextField.text = contact.email
         notesTextField.text = contact.note
         
-        //For the image
-        if !contact.photo.isEmpty && UIImage(named: contact.photo) != nil {
-            photoImageView.image = UIImage(named: contact.photo)
-            
-        }else{//This else is needed to reset the default image, else gets cached it and display the wrong one whenever the image cannot be found in the project
+        // Handle the photo with a fallback
+        if !contact.photo.isEmpty, let image = UIImage(named: contact.photo) {
+            photoImageView.image = image
+        } else {
             photoImageView.image = UIImage(systemName: "person.circle.fill")
         }
-        //Round the Image View
+        
+        // Styling: Round the image
         photoImageView.layer.cornerRadius = photoImageView.frame.size.width / 2
         photoImageView.clipsToBounds = true
-        
     }
     
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        /**as this method gets called for all segues, if you have more than 1 segue in this view controller, better differentiate them giving the segue an identifier, so you can use:
-             if identifier == "myIdentifierName" {
-             
-             }
-                or
-            Switch statement
-         
-            To set the unwind segue identifier, in Main.storyboard go to Edit Scene in the component hierarchy view (left side) find the unwind segue, click on it and set a identifier value in the attributes inspector.
-        */
-                
-            switch identifier {
-            case "saveEditGoToShowContactsTVC":
-                guard !firstnameTextField.text.isBlank else {
-                    showAlertMessage(title: "Validation", message: "Firstname is mandatory")
-                    return false
-                }
-                
-                guard !lastnameTextField.text.isBlank else{
-                    showAlertMessage(title: "Validation", message: "Lastname is mandatory")
-                    return false
-                }
-
-                guard !emailTextField.text.isBlank else{
-                    showAlertMessage(title: "Validation", message: "Email is mandatory")
-                    return false
-                }
-                
-                guard !phoneTextField.text.isBlank else{
-                    showAlertMessage(title: "Validation", message: "Phone is mandatory")
-                    return false
-                }
-            default:
-                print("segue: \(identifier) does not perform any validations")
-            }
-        
-        return true
-    }
+    // MARK: - Actions
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        
-        // placed this if conditional as a safeguard, so whenever we create a segue to go to another view controller,
-        // this code won't break, it will only work when going back to ShowContactsTableVC
-        if segue.destination is ShowContactsTVC {
-            
-            //Get all possible changes done in the UI
-            contact.firstname = firstnameTextField.text!
-            contact.lastname = lastnameTextField.text!
-            contact.email = emailTextField.text!
-            contact.favourite = favouriteSwitch.isOn
-            contact.phone = phoneTextField.text!
-            contact.note = notesTextField.text!
-            
-            let service = Repository.sharedRepository
-            //Get the logged user Id
-            let loggedInUserEmail = Auth.auth().currentUser?.email
-            
-            Task {
-                do {
-                    try await service.updateContact(for: loggedInUserEmail!, withData: contact)
-                    // If we reach here, the update definitely worked
-//                    self.navigationController?.popViewController(animated: true)
-                    print("contact updated")
-                } catch {
-                    // If the network is down or permissions fail, this catch block runs
-                    print("Update failed: \(error.localizedDescription)")
-//                    self.showErrorAlert(message: error.localizedDescription)
-                }
-            }
-            
+    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+        // 1. Validate the form
+        guard isFormValid() else {
+            showInvalidTextFields()
+            return
         }
         
+        // 2. Update the existing contact object with new values from UI
+        updateContactObject()
+        
+        // 3. Save to Firebase
+        performUpdate()
     }
     
+    // MARK: - Logic
+    
+    private func updateContactObject() {
+        contact.firstname = firstnameTextField.text ?? ""
+        contact.lastname = lastnameTextField.text ?? ""
+        contact.email = emailTextField.text ?? ""
+        contact.phone = phoneTextField.text ?? ""
+        contact.note = notesTextField.text ?? ""
+        contact.favourite = favouriteSwitch.isOn
+    }
+    
+    private func performUpdate() {
+        
+        guard let userId = Auth.auth().currentUser?.email else { return }
+        let service = Repository.sharedRepository
+        
+        Task {
+            do {
+                try await service.updateContact(for: userId, withData: contact)
+                print("✅ Contact updated successfully")
+                
+                // 4. Trigger the unwind segue
+                self.performSegue(withIdentifier: "unwindAfterEditSave", sender: self)
+
+            } catch {
+                print("❌ Update failed: \(error.localizedDescription)")
+                // Teaching tip: This is where you would show an error alert to the student
+            }
+        }
+    }
+    
+    /// Validates if all required fields are filled.
+    /// It uses a "Collection-based" approach to avoid writing multiple 'if' statements.
+    private func isFormValid() -> Bool {
+        // Put all mandatory text fields into an array for easy checking
+        let mandatoryFields = [firstnameTextField, lastnameTextField, emailTextField, phoneTextField]
+        
+        // Check if the array "contains" any field where the text is blank.
+        // We return 'true' only if NO fields are blank (using the ! operator to flip the result).
+        return !mandatoryFields.contains { field in
+            return field?.text?.isBlank ?? true
+        }
+    }
+
+    /// Provides visual feedback to the user by highlighting empty fields in red.
+    private func showInvalidTextFields() {
+        // List all fields that need a border check
+        let fields = [firstnameTextField, lastnameTextField, emailTextField, phoneTextField]
+        
+        // Loop through each field to apply or remove the error styling
+        for field in fields {
+            // Ternary Operator: (Condition ? ActionIfTrue : ActionIfFalse)
+            // If the text is blank, show the red border; otherwise, remove it.
+            field?.text.isBlank ?? true ? field?.showInvalidBorder() : field?.removeInvalidBorder()
+        }
+    }
 
 }
+
