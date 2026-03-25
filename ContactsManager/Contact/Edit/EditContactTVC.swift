@@ -21,9 +21,12 @@ class EditContactTVC: UITableViewController {
     @IBOutlet weak var notesTextField: UITextField!
     @IBOutlet weak var photoImageView: UIImageView!
 
+    var textFieldsToValidate = [UITextField]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        textFieldsToValidate = [firstnameTextField, lastnameTextField, emailTextField, phoneTextField]
     }
     
     private func setupUI() {
@@ -51,8 +54,8 @@ class EditContactTVC: UITableViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         // 1. Validate the form
-        guard isFormValid() else {
-            showInvalidTextFields()
+        guard isFormValid(mandatoryFieldsArray: textFieldsToValidate) else {
+            showInvalidTextFields(mandatoryFieldsArray: textFieldsToValidate)
             return
         }
         
@@ -94,31 +97,5 @@ class EditContactTVC: UITableViewController {
         }
     }
     
-    /// Validates if all required fields are filled.
-    /// It uses a "Collection-based" approach to avoid writing multiple 'if' statements.
-    private func isFormValid() -> Bool {
-        // Put all mandatory text fields into an array for easy checking
-        let mandatoryFields = [firstnameTextField, lastnameTextField, emailTextField, phoneTextField]
-        
-        // Check if the array "contains" any field where the text is blank.
-        // We return 'true' only if NO fields are blank (using the ! operator to flip the result).
-        return !mandatoryFields.contains { field in
-            return field?.text?.isBlank ?? true
-        }
-    }
-
-    /// Provides visual feedback to the user by highlighting empty fields in red.
-    private func showInvalidTextFields() {
-        // List all fields that need a border check
-        let fields = [firstnameTextField, lastnameTextField, emailTextField, phoneTextField]
-        
-        // Loop through each field to apply or remove the error styling
-        for field in fields {
-            // Ternary Operator: (Condition ? ActionIfTrue : ActionIfFalse)
-            // If the text is blank, show the red border; otherwise, remove it.
-            field?.text.isBlank ?? true ? field?.showInvalidBorder() : field?.removeInvalidBorder()
-        }
-    }
-
 }
 

@@ -14,8 +14,14 @@ class AddContactTVC: UITableViewController {
     @IBOutlet weak var notesTextField: UITextField!
     @IBOutlet weak var photoTextField: UITextField!
     
+    
+    var textFieldsToValidate = [UITextField]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Array containing the textFields componets that are mandatory to input by the user
+        textFieldsToValidate = [firstnameTextField, lastnameTextField, emailTextField, phoneTextField];
     }
 
     // MARK: - Actions
@@ -25,8 +31,8 @@ class AddContactTVC: UITableViewController {
     @IBAction func saveButtonTapped(_ sender: Any) {
         
         // 1. Validate the UI
-        guard isFormValid() else {
-            showInvalidTextFields()
+        guard isFormValid(mandatoryFieldsArray: textFieldsToValidate) else {
+            showInvalidTextFields(mandatoryFieldsArray: textFieldsToValidate)
             return
         }
         
@@ -70,28 +76,5 @@ class AddContactTVC: UITableViewController {
         }
     }
 
-    /// Checks if mandatory fields are filled.
-    /// Teaching tip: Using a list/array makes it easy to add more fields later.
-    private func isFormValid() -> Bool {
-        let mandatoryFields = [firstnameTextField, lastnameTextField, emailTextField, phoneTextField]
-        
-        // If any field is blank, the form is invalid
-        for field in mandatoryFields {
-            if field?.text?.isBlank ?? true {
-                return false
-            }
-        }
-        return true
-    }
 
-    /// Updates the UI borders to provide visual feedback to the student.
-    private func showInvalidTextFields() {
-        let fields = [firstnameTextField, lastnameTextField, emailTextField, phoneTextField]
-        
-        for field in fields {
-            if let textField = field {
-                textField.text.isBlank ? textField.showInvalidBorder() : textField.removeInvalidBorder()
-            }
-        }
-    }
 }

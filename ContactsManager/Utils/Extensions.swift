@@ -39,6 +39,30 @@ extension Optional where Wrapped  == String {
 
 //Here we create an extension for UIViewController so we can call showAlert and deleteConfirmation from any viewController
 extension UIViewController {
+    
+    /// Checks if mandatory fields are filled.
+    /// Teaching tip: Using a list/array makes it easy to add more fields later.
+    public func isFormValid(mandatoryFieldsArray: [UITextField]) -> Bool {
+        
+        // If any field is blank, the form is invalid
+        for field in mandatoryFieldsArray {
+            if field.text.isBlank {
+                return false
+            }
+        }
+        return true
+    }
+
+    /// Updates the UI borders to provide visual feedback to the student.
+    public func showInvalidTextFields(mandatoryFieldsArray : [UITextField]) {
+        
+        
+        for field in mandatoryFieldsArray {
+            field.text.isBlank ? field.showInvalidBorder() : field.removeInvalidBorder()
+        }
+    }
+    
+    
     func showAlertMessage(title : String, message: String){
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
