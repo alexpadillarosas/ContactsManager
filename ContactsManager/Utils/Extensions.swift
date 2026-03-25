@@ -13,13 +13,7 @@ import UIKit
 extension Optional where Wrapped == String {
     //we create a computed property for the class, whose value will be determined by the return statement
     var isBlank: Bool{
-        //if we manage to unwrap it then it means is not nil, else is nil
-        guard let notNilBool = self else {
-            // as it is nil, we consider nil as blank string
-            return true
-        }
-        //at this point notNilBool is not null, so we can trim the spaces and check is it's empty
-        return notNilBool.trimmingCharacters(in:.whitespaces).isEmpty
+        return self?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true
     }
 }
 
@@ -56,12 +50,17 @@ extension UIViewController {
     /// Updates the UI borders to provide visual feedback to the student.
     public func showInvalidTextFields(mandatoryFieldsArray : [UITextField]) {
         
-        
         for field in mandatoryFieldsArray {
-            field.text.isBlank ? field.showInvalidBorder() : field.removeInvalidBorder()
+            if field.text.isBlank {
+                field.showInvalidBorder()
+                field.shake()
+                field.setErrorIcon()
+            }else{
+                field.removeInvalidBorder()
+                field.hideErrorIcon()
+            }
         }
     }
-    
     
     func showAlertMessage(title : String, message: String){
         
@@ -71,6 +70,7 @@ extension UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    
     //We create a function with a trailing closure, so we can pass code to be executed whenever the hit the ok button
     func showAlertMessageWithHandler(title : String, message: String, onComplete : (()-> Void)? ){
         
@@ -120,12 +120,54 @@ extension UITextField {
     func showInvalidBorder() {
         self.layer.borderColor = UIColor.red.cgColor
         self.layer.borderWidth = 0.5
+        self.layer.cornerRadius = 5.0
+        self.clipsToBounds = true   // Ensures content doesn't bleed past rounded corners
     }
     
     func removeInvalidBorder(){
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 0.0
+        self.layer.cornerRadius = 5.0
     }
+    
+//    func addLeftPadding(_ amount: CGFloat) {
+//        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.height))
+//        self.leftView = paddingView
+//        self.leftViewMode = .always
+//    }
+    
+    func shake() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: .linear)
+        animation.duration = 0.6
+        animation.values = [-10.0, 10.0, -10.0, 10.0, -5.0, 5.0, -2.5, 2.5, 0.0]
+        layer.add(animation, forKey: "shake")
+    }
+    
+    /**
+     Adds an exclamation mark icon to the right area of the UiTextField
+     */
+    func setErrorIcon() {
+        //Create a container view to act as padding
+        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 35, height: 20))
+        // create the icon
+        let iconView = UIImageView(image: UIImage(systemName: "exclamationmark.circle.fill"))
+        iconView.tintColor = .systemRed
+        iconView.contentMode = .scaleAspectFit
+        
+        // Adjust frame size to fit nicely in the field
+        iconView.frame = CGRect(x: 0, y: 0, width: 25, height: 20)
+        
+        containerView.addSubview(iconView)
+        // Assign the container as the rightView
+        self.rightView = containerView
+        self.rightViewMode = .always
+    }
+    
+    func hideErrorIcon() {
+            self.rightView = nil
+            self.rightViewMode = .never
+        }
     
     func setLeftView(image: UIImage) {
         
@@ -135,12 +177,8 @@ extension UITextField {
         iconContainerView.addSubview(iconView)
         leftView = iconContainerView
         leftViewMode = .always
-//        self.tintColor = .lightGray
-         
-        
-        
     }
-    
+
     enum Direction {
         case Left
         case Right
