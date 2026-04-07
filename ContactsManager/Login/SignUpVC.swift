@@ -19,14 +19,16 @@ class SignUpVC: UIViewController {
     // MARK: - Actions
     
     @IBAction func signUpDidPress(_ sender: Any) {
-        // 1. Validate Form
+        // Validate Form, also unwrapp email and password
         guard validateInputs(),
               let email = emailTextField.text,
-              let password = passwordTextField.text else { return }
+              let password = passwordTextField.text else {
+            return
+        }
         
         logInActivityIndicatorView.startAnimating()
         
-        // 2. Start Async Signup Flow
+        // Start Async Signup Flow
         Task {
             do {
                 // A. Create User in Firebase Auth

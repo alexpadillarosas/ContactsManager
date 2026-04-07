@@ -30,13 +30,13 @@ class AddContactTVC: UITableViewController {
     /// Note: Connect this to a Bar Button Item or a Button in your Storyboard.
     @IBAction func saveButtonTapped(_ sender: Any) {
         
-        // 1. Validate the UI
+        // Validate the UI
         guard isFormValid(mandatoryFieldsArray: textFieldsToValidate) else {
             showInvalidTextFields(mandatoryFieldsArray: textFieldsToValidate)
             return
         }
         
-        // 2. Extract data and create the Contact object
+        // Extract data and create the Contact object
         // We use nil-coalescing (?? "") to avoid crashes from empty fields
         let contact = Contact(
             firstname: firstnameTextField.text ?? "",
@@ -50,7 +50,7 @@ class AddContactTVC: UITableViewController {
             tags: []
         )
         
-        // 3. Save to Firebase
+        // Save to Firebase
         saveContact(contact)
     }
 

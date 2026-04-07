@@ -57,13 +57,13 @@ class Repository {
     }
     
     func addUser(withData user: User) async throws {
-        // 1. Prepare the data using our model helper
+        // Prepare the data using our model helper
         let data = user.toDictionary()
         
-        // 2. Use the provided user.id (from Auth) to set the document
+        // Use the provided email to set the document, so we could easily identify the user in the collection by their email. Make a reference to it.
         let userRef = db.collection("users").document(user.email)
         
-        // 3. Perform the async write
+        // Perform the async write
         // This will 'throw' an error if the network is down or permissions fail
         try await userRef.setData(data)
         
@@ -72,31 +72,31 @@ class Repository {
 
     
     func findUserInfo(for userId: String) async throws -> User? {
-        // 1. Get the document reference
+        // Get the document reference
         let userRef = db.collection("users").document(userId)
         
-        // 2. Await the document snapshot
+        // Await the document snapshot
         // This replaces the nested completion handler block
         let document = try await userRef.getDocument()
         
-        // 3. Check if the document exists and has data
+        // Check if the document exists and has data
         guard document.exists, let data = document.data() else {
             print("User document does not exist for ID: \(userId)")
             return nil
         }
         
-        // 4. Initialize our User object using the dictionary
+        // Initialize our User object using the dictionary
         return User(id: userId, dictionary: data)
     }
 
     
     func updateUser(withData user: User) async throws {
-        // 1. Guard against a missing ID 
+        // Guard against a missing ID
         guard let uid = user.id, !uid.isEmpty else {
             throw NSError(domain: "AppError", code: 400, userInfo: [NSLocalizedDescriptionKey: "User ID is missing"])
         }
 
-        // 2. Prepare the update dictionary
+        // Prepare the update dictionary
         // Senior tip: Don't update 'email' or 'registered' here to prevent accidental overwrites
         let dictionary: [String: Any] = [
             "firstname": user.firstname,
@@ -106,10 +106,10 @@ class Repository {
             "dob": user.dob ?? FieldValue.serverTimestamp() // Safe fallback
         ]
         
-        // 3. Reference by user.id (UID)(which is the email in this case)
+        // Reference by user.id (UID)(which is the email in this case)
         let userRef = db.collection("users").document(uid)
         
-        // 4. Perform the update and await the server response
+        // Perform the update and await the server response
         try await userRef.updateData(dictionary)
         
         print("Profile for \(user.email) updated successfully")
@@ -117,22 +117,22 @@ class Repository {
 
     
     func updateContact(for userId: String, withData contact: Contact) async throws {
-        // 1. Guard against a missing ID to avoid force-unwrapping crashes
+        // Guard against a missing ID to avoid force-unwrapping crashes
         guard let contactId = contact.id else {
             print("Error: Attempted to update a contact without an ID")
             return
         }
         
-        // 2. Use your existing dictionary mapping
+        // Use your existing dictionary mapping
         let data = contact.toDictionary()
         
-        // 3. Reference the specific document using the cleaner path syntax
+        //Reference the specific document using the cleaner path syntax
         let contactRef = db.collection("users")
                             .document(userId)
                             .collection("contacts")
                             .document(contactId)
         
-        // 4. Perform the update and await the result
+        // Perform the update and await the result
         try await contactRef.updateData(data)
         
         print("Contact \(contactId) updated successfully")
@@ -158,13 +158,13 @@ class Repository {
     }
     
     func deleteContact(withContactId contactId: String, for userId: String) async throws {
-        // 1. Reference the document path clearly
+        // Reference the document path clearly
         let contactRef = db.collection("users")
                             .document(userId)
                             .collection("contacts")
                             .document(contactId)
         
-        // 2. Await the deletion. This ensures the function doesn't 'finish'
+        // Await the deletion. This ensures the function doesn't 'finish'
         // until the server confirms the record is gone.
         try await contactRef.delete()
         

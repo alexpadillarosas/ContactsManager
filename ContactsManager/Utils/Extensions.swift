@@ -35,7 +35,7 @@ extension Optional where Wrapped  == String {
 extension UIViewController {
     
     /// Checks if mandatory fields are filled.
-    /// Teaching tip: Using a list/array makes it easy to add more fields later.
+    /// Using a list/array makes it easy to add more fields later.
     public func isFormValid(mandatoryFieldsArray: [UITextField]) -> Bool {
         
         // If any field is blank, the form is invalid
